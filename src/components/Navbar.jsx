@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { IoCloseOutline, IoMenuOutline } from "react-icons/io5";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const dropdownButtonRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const user = {
-    email: "user@example.com",
-  };
+  const { user, logOut } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -33,17 +34,29 @@ export default function Navbar() {
       <nav className="sticky top-0 border-b bg-white py-5">
         <div className="mx-auto flex w-11/12 max-w-screen-xl items-center justify-between">
           <section className="flex items-center justify-center gap-2">
-            <img className="h-9 w-9" src="/tesseract.png" alt="" />
-            <h3 className="text-3xl font-semibold">Tesseract</h3>
+            <img onClick={()=> navigate("/")} className="h-9 w-9 cursor-pointer" src="/tesseract.png" alt="" />
+            <h3 onClick={()=> navigate("/")} className="text-3xl font-semibold cursor-pointer">Tesseract</h3>
           </section>
           <section className="flex items-center gap-8">
-            <a className="hidden sm:block" href="">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `${isActive ? "font-bold" : ""} hidden sm:block`
+              }
+            >
               Home
-            </a>
-            <a href="" className="hidden sm:block">
+            </NavLink>
+
+            <NavLink
+              to="/products"
+              className={({ isActive }) =>
+                `${isActive ? "font-bold" : ""} hidden sm:block`
+              }
+            >
               Products
-            </a>
-            {user?.email ? (
+            </NavLink>
+
+            {user && user?.email ? (
               <div
                 ref={dropdownButtonRef}
                 onClick={() => setDropdownOpen((prev) => !prev)}
@@ -51,15 +64,18 @@ export default function Navbar() {
               >
                 <img
                   className="h-9 w-9 cursor-pointer rounded-full border"
-                  src="https://placehold.co/36"
+                  src={user?.photoURL}
                   alt=""
+                  referrerPolicy="no-referrer"
                 />
                 {dropdownOpen && (
                   <div
                     ref={dropdownRef}
                     className="absolute right-0 top-12 flex min-w-56 flex-col rounded-lg border bg-white py-2"
                   >
-                    <p className="px-4 py-3 font-semibold">Raisul Kayes Raka</p>
+                    <p className="px-4 py-3 font-semibold">
+                      {user?.displayName}
+                    </p>
                     <hr />
                     <a
                       href=""
@@ -67,19 +83,22 @@ export default function Navbar() {
                     >
                       Dashboard
                     </a>
-                    <a
-                      href=""
-                      className="px-4 py-2 text-black hover:bg-gray-50 focus:scale-95"
+                    <button
+                      onClick={logOut}
+                      className="px-4 py-2 text-left text-black hover:bg-gray-50 focus:scale-95"
                     >
                       Logout
-                    </a>
+                    </button>
                   </div>
                 )}
               </div>
             ) : (
-              <button className="hidden rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 sm:block">
+              <NavLink
+                to="/login"
+                className="hidden rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 sm:block"
+              >
                 Login
-              </button>
+              </NavLink>
             )}
 
             <button
@@ -90,7 +109,7 @@ export default function Navbar() {
             </button>
           </section>
           <section
-            className={`fixed left-0 top-0 z-10 block h-screen w-full bg-white transition-all duration-500 ease-in-out sm:hidden ${
+            className={`fixed left-0 top-0 z-50 block h-screen w-full bg-white transition-all duration-500 ease-in-out sm:hidden ${
               open ? "translate-y-0" : "-translate-y-full"
             }`}
           >
@@ -102,36 +121,51 @@ export default function Navbar() {
                 <IoCloseOutline />
               </button>
               <div className="mt-12 flex-1 text-center">
-                <a className="block py-3" href="">
+                <NavLink
+                  to="/"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `${isActive ? "font-bold" : ""} block py-3`
+                  }
+                >
                   Home
-                </a>
-                <a className="block py-3" href="">
-                  Product
-                </a>
+                </NavLink>
+                <NavLink
+                  to="/products"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `${isActive ? "font-bold" : ""} block py-3`
+                  }
+                >
+                  Products
+                </NavLink>
               </div>
-              {user.email ? (
+              {user && user?.email ? (
                 <div className="w-full rounded-lg border py-4">
                   <div className="flex items-center justify-center">
                     <img
                       className="h-24 w-24 rounded-full"
-                      src="https://placehold.co/96"
+                      src={user?.photoURL}
                       alt=""
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                   <div>
                     <p className="px-4 py-3 text-center font-semibold">
-                      Raisul Kayes Raka
+                      {user?.displayName}
                     </p>
                     <hr />
                     <div className="flex flex-col">
                       <a
                         href=""
+                        onClick={() => setOpen(false)}
                         className="mt-2 px-4 py-2 text-center text-black hover:bg-gray-50 focus:scale-95"
                       >
                         Dashboard
                       </a>
                       <button
                         onClick={() => {
+                          logOut();
                           setOpen(false);
                         }}
                         className="block px-4 py-2 text-center text-black hover:bg-gray-50 focus:scale-95"
@@ -142,9 +176,13 @@ export default function Navbar() {
                   </div>
                 </div>
               ) : (
-                <button className="block rounded-lg bg-black px-4 py-2 text-center text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95">
+                <NavLink
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-lg bg-black px-4 py-2 text-center text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95"
+                >
                   Login
-                </button>
+                </NavLink>
               )}
             </div>
           </section>
