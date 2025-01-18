@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function MainLayout() {
   const location = useLocation();
@@ -12,6 +13,7 @@ export default function MainLayout() {
     <>
       {!isAuthPage && <Navbar />}
       <Outlet />
+      {!isAuthPage && <Footer />}
     </>
   );
 }
