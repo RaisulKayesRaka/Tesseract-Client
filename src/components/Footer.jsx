@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <>
+    <hr />
       <footer className="bg-white py-10">
         <div className="mx-auto grid w-11/12 max-w-screen-xl grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo and Description */}

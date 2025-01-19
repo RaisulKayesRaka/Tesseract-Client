@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 
 export default function MainLayout() {
   const location = useLocation();
-  console.log(location);
   const isAuthPage =
     location.pathname.includes("/login") ||
     location.pathname.includes("/register");
