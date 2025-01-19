@@ -31,11 +31,21 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 border-b bg-white py-5">
+      <nav className="sticky top-0 z-50 border-b bg-white py-5">
         <div className="mx-auto flex w-11/12 max-w-screen-xl items-center justify-between">
           <section className="flex items-center justify-center gap-2">
-            <img onClick={()=> navigate("/")} className="h-9 w-9 cursor-pointer" src="/tesseract.png" alt="" />
-            <h3 onClick={()=> navigate("/")} className="text-3xl font-semibold cursor-pointer">Tesseract</h3>
+            <img
+              onClick={() => navigate("/")}
+              className="h-9 w-9 cursor-pointer"
+              src="/tesseract.png"
+              alt=""
+            />
+            <h3
+              onClick={() => navigate("/")}
+              className="cursor-pointer text-3xl font-semibold"
+            >
+              Tesseract
+            </h3>
           </section>
           <section className="flex items-center gap-8">
             <NavLink
