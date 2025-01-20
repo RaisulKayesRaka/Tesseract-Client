@@ -5,9 +5,11 @@ import { FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { MdError } from "react-icons/md";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 export default function Login() {
   const { setUser, userLogin, googleLogIn } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,7 +39,17 @@ export default function Login() {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        toast.success("Login Successful");
+        axiosPublic
+          .post("/users", {
+            email: user?.email,
+            name: user?.displayName,
+            photoUrl: user?.photoURL,
+          })
+          .then((response) => {
+            if (response?.data?.insertedId) {
+              toast.success("Login successful!");
+            }
+          });
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
@@ -80,7 +92,7 @@ export default function Login() {
               </label>
               <label htmlFor="password">
                 <p>Password</p>
-                <div className="relative -z-10">
+                <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
