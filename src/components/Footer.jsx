@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <>
-    <hr />
+      <hr />
       <footer className="bg-white py-10">
         <div className="mx-auto grid w-11/12 max-w-screen-xl grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo and Description */}
@@ -36,13 +36,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:underline">
-                  Dashboard
+                <Link href="/about" className="hover:underline">
+                  About
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:underline">
-                  Contact Us
+                <Link href="/faq" className="hover:underline">
+                  FAQ
                 </Link>
               </li>
             </ul>

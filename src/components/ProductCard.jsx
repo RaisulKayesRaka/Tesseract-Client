@@ -14,7 +14,7 @@ export default function ProductCard() {
           </div>
           <div>
             <Link
-              to="/products/123"
+              to="/product/123"
               className="underline-offset-2 group-hover:underline"
             >
               <h3 className="mb-1 font-semibold">Quickfill - A Figma Plugin</h3>
