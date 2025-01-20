@@ -7,6 +7,7 @@ import Register from "../pages/Auth/Register";
 import Products from "../pages/Products/Products";
 import ProductDetails from "../pages/Products/ProductDetails";
 import PrivateRoute from "./PrivateRoute";
+import DashboardLayout from "../layouts.jsx/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -39,5 +40,13 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
   },
 ]);

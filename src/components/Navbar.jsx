@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { IoCloseOutline, IoMenuOutline } from "react-icons/io5";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
@@ -87,12 +87,12 @@ export default function Navbar() {
                       {user?.displayName}
                     </p>
                     <hr />
-                    <a
-                      href=""
+                    <Link
+                      to="/dashboard"
                       className="mt-2 px-4 py-2 text-black hover:bg-gray-50 focus:scale-95"
                     >
                       Dashboard
-                    </a>
+                    </Link>
                     <button
                       onClick={logOut}
                       className="px-4 py-2 text-left text-black hover:bg-gray-50 focus:scale-95"
@@ -166,13 +166,13 @@ export default function Navbar() {
                     </p>
                     <hr />
                     <div className="flex flex-col">
-                      <a
-                        href=""
+                      <Link
+                        to="/dashboard"
                         onClick={() => setOpen(false)}
                         className="mt-2 px-4 py-2 text-center text-black hover:bg-gray-50 focus:scale-95"
                       >
                         Dashboard
-                      </a>
+                      </Link>
                       <button
                         onClick={() => {
                           logOut();
