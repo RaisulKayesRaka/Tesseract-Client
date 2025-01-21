@@ -1,7 +1,23 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ProductCard from "../../components/ProductCard";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/Loading";
 
 export default function Products() {
+  const axiosPublic = useAxiosPublic();
+
+  const { data: products, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get("/products");
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <section className="mx-auto my-8 w-11/12 max-w-screen-xl">
@@ -18,8 +34,8 @@ export default function Products() {
           />
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, index) => (
-            <ProductCard key={index} />
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
 

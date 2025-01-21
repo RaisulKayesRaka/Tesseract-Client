@@ -4,19 +4,30 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import "./styles.css";
 import { Autoplay, Mousewheel } from "swiper/modules";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "./Loading";
 
 export default function FeaturedProducts() {
+  const axiosPublic = useAxiosPublic();
+
+  const { data: products, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get("/products?type=featured");
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <section className="mx-auto my-12 w-11/12 max-w-screen-xl">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Featured Products</h2>
       </div>
-      {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[...Array(4)].map((_, index) => (
-          <ProductCard key={index} />
-        ))}
-      </div> */}
-
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
@@ -44,9 +55,9 @@ export default function FeaturedProducts() {
         modules={[Autoplay, Mousewheel]}
         className="mySwiper"
       >
-        {[...Array(6)].map((_, index) => (
-          <SwiperSlide key={index}>
-            <ProductCard />
+        {products.map((product) => (
+          <SwiperSlide key={product._id}>
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
