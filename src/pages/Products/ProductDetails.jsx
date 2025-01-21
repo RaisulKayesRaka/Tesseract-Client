@@ -9,10 +9,13 @@ import Rating from "react-rating";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Loading";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function ProductDetails() {
   const [rating, setRating] = useState(0);
   const { id } = useParams();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const { data: product, isLoading } = useQuery({
@@ -23,9 +26,50 @@ export default function ProductDetails() {
     },
   });
 
-  if (isLoading) {
+  const {
+    data: reviews,
+    isLoading: isLoadingReviews,
+    refetch,
+  } = useQuery({
+    queryKey: ["reviews", id],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/reviews/${id}`);
+      return data;
+    },
+  });
+
+  if (isLoading || isLoadingReviews) {
     return <Loading />;
   }
+
+  const handleAddReview = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const reviewerEmail = user?.email;
+    const reviewerName = user?.displayName;
+    const reviewerImage = user?.photoURL;
+    const rating = form.rating.value;
+    const review = form.review.value;
+
+    const newReview = {
+      productId: id,
+      reviewerEmail,
+      reviewerName,
+      reviewerImage,
+      rating,
+      review,
+      reviewDate: new Date().toISOString(),
+    };
+    console.log(newReview);
+
+    const { data } = await axiosSecure.post("/reviews", newReview);
+    if (data?.insertedId) {
+      toast.success("Review added successfully");
+      form.reset();
+      refetch();
+    }
+    document.getElementById("add-review-modal").classList.add("hidden");
+  };
 
   return (
     <>
@@ -104,21 +148,27 @@ export default function ProductDetails() {
           <h3 className="mt-4 text-lg font-semibold">Reviews</h3>
           <hr />
           <div className="mt-2 divide-y">
-            {[...Array(4)].map((_, index) => (
-              <div key={index} className="space-y-1">
+            {reviews.length === 0 && (
+              <h2 className="mt-4 text-center font-semibold text-gray-600">
+                No reviews yet
+              </h2>
+            )}
+            {reviews.map((review) => (
+              <div key={review._id} className="space-y-1">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div className="mt-2 flex items-center gap-2">
                     <img
-                      src="https://ph-files.imgix.net/6db07ae9-601e-4488-893b-13ef5b7b457a.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=56&h=56&fit=crop&frame=1&dpr=1"
+                      src={review?.reviewerImage}
                       className="h-8 w-8 rounded-full"
                       alt=""
                     />
                     <div>
-                      <p className="font-semibold">Raisul Kayes Raka</p>
+                      <p className="font-semibold">{review?.reviewerName}</p>
                     </div>
                   </div>
                   <Rating
-                    initialRating={3}
+                    key={review._id}
+                    initialRating={review?.rating}
                     readonly
                     emptySymbol={
                       <BsStar className="mr-2 text-sm text-yellow-500" />
@@ -128,10 +178,7 @@ export default function ProductDetails() {
                     }
                   />
                 </div>
-                <p className="pb-2 text-justify text-sm">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum,
-                  unde?
-                </p>
+                <p className="pb-2 text-justify text-sm">{review?.review}</p>
               </div>
             ))}
           </div>
@@ -153,31 +200,31 @@ export default function ProductDetails() {
               >
                 <IoClose />
               </button>
-              <form action="" className="mt-4 space-y-3">
+              <form onSubmit={handleAddReview} className="mt-4 space-y-3">
                 <div>
                   <label className="mb-2 block text-sm font-semibold">
-                    Name
+                    Reviewer Name
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="reviewerName"
+                    id="reviewerName"
                     className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
-                    defaultValue="Raisul Kayes Raka"
+                    defaultValue={user?.displayName}
                     required
                     readOnly
                   />
                 </div>
                 <div>
                   <label className="mb-2 block text-sm font-semibold">
-                    Email
+                    Reviewer Image
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
+                    type="url"
+                    name="reviewerImage"
+                    id="reviewerImage"
                     className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
-                    defaultValue="raka@example.com"
+                    defaultValue={user?.photoURL}
                     required
                     readOnly
                   />
