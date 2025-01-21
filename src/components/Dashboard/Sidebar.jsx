@@ -8,10 +8,12 @@ import { MdLibraryAddCheck, MdRateReview } from "react-icons/md";
 import { AiFillProduct } from "react-icons/ai";
 import { TbMessageReportFilled } from "react-icons/tb";
 import { RiCoupon2Fill } from "react-icons/ri";
+import useRole from "../../hooks/useRole";
 
 export default function Sidebar({ toggleSidebar }) {
   const { user, logOut } = useAuth();
-  const role = "admin";
+  const [role] = useRole();
+
   return (
     <aside
       id="sidebar"
