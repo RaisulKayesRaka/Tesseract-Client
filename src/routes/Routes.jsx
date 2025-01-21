@@ -8,6 +8,14 @@ import Products from "../pages/Products/Products";
 import ProductDetails from "../pages/Products/ProductDetails";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts.jsx/DashboardLayout";
+import MyProfile from "../pages/Dashboard/User/MyProfile";
+import AddProduct from "../pages/Dashboard/User/AddProduct";
+import MyProducts from "../pages/Dashboard/User/MyProducts";
+import ProductReviewQueue from "../pages/Dashboard/Moderator/ProductReviewQueue";
+import ReportedContents from "../pages/Dashboard/Moderator/ReportedContents";
+import Statistics from "../pages/Dashboard/Admin/Statistics";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import ManageCoupons from "../pages/Dashboard/Admin/ManageCoupons";
 
 export const router = createBrowserRouter([
   {
@@ -48,5 +56,39 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "my-profile",
+        element: <MyProfile />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "my-products",
+        element: <MyProducts />,
+      },
+      {
+        path: "product-review-queue",
+        element: <ProductReviewQueue />,
+      },
+      {
+        path: "reported-contents",
+        element: <ReportedContents />,
+      },
+      {
+        path: "statistics",
+        element: <Statistics />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manage-coupons",
+        element: <ManageCoupons />,
+      },
+    ],
   },
 ]);

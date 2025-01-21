@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
 import { GoSidebarCollapse } from "react-icons/go";
 import useAuth from "../../hooks/useAuth";
+import { NavLink } from "react-router-dom";
+import { FaUser, FaUsersCog } from "react-icons/fa";
+import { IoStatsChart } from "react-icons/io5";
+import { MdLibraryAddCheck, MdRateReview } from "react-icons/md";
+import { AiFillProduct } from "react-icons/ai";
+import { TbMessageReportFilled } from "react-icons/tb";
+import { RiCoupon2Fill } from "react-icons/ri";
 
 export default function Sidebar({ toggleSidebar }) {
   const { user, logOut } = useAuth();
+  const role = "admin";
   return (
     <aside
       id="sidebar"
@@ -19,9 +27,125 @@ export default function Sidebar({ toggleSidebar }) {
         </button>
       </div>
       <section className="flex h-[calc(100vh-64px)] flex-col">
-        <div className="flex-1 bg-rose-100"></div>
+        <section className="flex-1 px-4">
+          <div className="flex flex-col items-center justify-center gap-4">
+            {role === "user" && (
+              <>
+                <NavLink
+                  to="my-profile"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <FaUser /> <p>My Profile</p>
+                </NavLink>
+                <NavLink
+                  to="add-product"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <MdLibraryAddCheck />
+                  <p>Add Product</p>
+                </NavLink>
+                <NavLink
+                  to="my-products"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <AiFillProduct /> <p>My Products</p>
+                </NavLink>
+              </>
+            )}
+
+            {role === "moderator" && (
+              <>
+                <NavLink
+                  to="product-review-queue"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <MdRateReview /> <p>Product Review Queue</p>
+                </NavLink>
+                <NavLink
+                  to="reported-contents"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <TbMessageReportFilled />
+                  <p>Reported Contents</p>
+                </NavLink>
+              </>
+            )}
+
+            {role === "admin" && (
+              <>
+                <NavLink
+                  to="statistics"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <IoStatsChart />
+                  <p>Statistics</p>
+                </NavLink>
+                <NavLink
+                  to="manage-users"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <FaUsersCog /> <p>Manage Users</p>
+                </NavLink>
+                <NavLink
+                  to="manage-coupons"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white"
+                        : "hover:bg-gray-50"
+                    }`
+                  }
+                >
+                  <RiCoupon2Fill /> <p>Manage Coupons</p>
+                </NavLink>
+              </>
+            )}
+          </div>
+        </section>
         <hr />
-        <div className="w-full rounded-lg p-4">
+        <section className="w-full rounded-lg p-4">
           <div className="flex items-center justify-center">
             <img
               className="h-24 w-24 rounded-full"
@@ -46,7 +170,7 @@ export default function Sidebar({ toggleSidebar }) {
               </button>
             </div>
           </div>
-        </div>
+        </section>
       </section>
     </aside>
   );

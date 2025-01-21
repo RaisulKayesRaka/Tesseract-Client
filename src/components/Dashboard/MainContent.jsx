@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
 import { GoSidebarExpand } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function MainContent({ toggleSidebar, isSidebarVisible }) {
   const navigate = useNavigate();
   return (
     <main className="flex-1 bg-white">
-      
-      <div className="flex h-16 items-center gap-4 p-4 bg-white sticky top-0 z-40 border-b">
+      <div className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-white p-4">
         {!isSidebarVisible && (
           <>
             <button
@@ -34,8 +33,10 @@ export default function MainContent({ toggleSidebar, isSidebarVisible }) {
           </h3>
         </section>
       </div>
-      
-      <div className="p-4">Right Side Content</div>
+
+      <div className="p-4">
+        <Outlet />
+      </div>
     </main>
   );
 }
