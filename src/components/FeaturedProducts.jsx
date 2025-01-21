@@ -11,10 +11,10 @@ import Loading from "./Loading";
 export default function FeaturedProducts() {
   const axiosPublic = useAxiosPublic();
 
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["products"],
+  const { data: featuredProducts, isLoading } = useQuery({
+    queryKey: ["featuredProducts"],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/products?type=featured");
+      const { data } = await axiosPublic.get("/featured-products");
       return data;
     },
   });
@@ -55,7 +55,7 @@ export default function FeaturedProducts() {
         modules={[Autoplay, Mousewheel]}
         className="mySwiper"
       >
-        {products.map((product) => (
+        {featuredProducts.map((product) => (
           <SwiperSlide key={product._id}>
             <ProductCard product={product} />
           </SwiperSlide>
