@@ -50,6 +50,39 @@ export default function ProductReviewQueue() {
     ));
   };
 
+  const handleMakeAccepted = (id) => {
+    const makeAccepted = async () => {
+      const res = await axiosSecure.patch(`/products/make-accepted/${id}`);
+      if (res?.data?.modifiedCount > 0) {
+        toast.success("Product made accepted successfully");
+        refetch();
+      }
+    };
+
+    toast((t) => (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div>Are you sure you want to accept this product?</div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              makeAccepted();
+              toast.dismiss(t.id);
+            }}
+            className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <>
       <section>
