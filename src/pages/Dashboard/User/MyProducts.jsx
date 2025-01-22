@@ -12,7 +12,7 @@ export default function MyProducts() {
   const { data: products = [], refetch } = useQuery({
     queryKey: ["myProducts", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/products?email=${user?.email}`);
+      const res = await axiosSecure.get(`/all-products?email=${user?.email}`);
       return res?.data;
     },
     enabled: !loading && !!user?.email,

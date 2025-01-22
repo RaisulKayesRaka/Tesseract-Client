@@ -70,6 +70,7 @@ export default function AddProduct() {
       ownerEmail,
       type,
       status,
+      isReported: false,
       upvotes: 0,
       downvotes: 0,
       date: new Date().toISOString(),

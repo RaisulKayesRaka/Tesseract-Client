@@ -25,7 +25,7 @@ export default function Products() {
     setLoading(true);
     const fetchProducts = async () => {
       const res = await axiosPublic.get(
-        `/products?page=${currentPage}&size=${itemsPerPage}&search=${search}`,
+        `/accepted-products?page=${currentPage}&size=${itemsPerPage}&search=${search}`,
       );
       setProducts(res?.data);
       setLoading(false);
