@@ -18,7 +18,7 @@ export default function ProductDetails() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: product, isLoading } = useQuery({
+  const { data: product = {}, isLoading } = useQuery({
     queryKey: ["product", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/products/${id}`);
@@ -87,7 +87,7 @@ export default function ProductDetails() {
                     key={index}
                     className="inline-block rounded-full bg-gray-100 px-2"
                   >
-                    {tag}
+                    {tag?.id}
                   </div>
                 ))}
               </div>

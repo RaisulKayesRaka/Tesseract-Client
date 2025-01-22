@@ -17,7 +17,7 @@ export default function Sidebar({ toggleSidebar }) {
   return (
     <aside
       id="sidebar"
-      className="fixed top-0 z-50 max-h-screen min-h-full w-72 bg-white shadow sm:sticky"
+      className="fixed top-0 z-50 max-h-screen min-h-full min-w-72 bg-white shadow sm:sticky"
     >
       <div className="flex h-16 items-center gap-4 p-4">
         <button

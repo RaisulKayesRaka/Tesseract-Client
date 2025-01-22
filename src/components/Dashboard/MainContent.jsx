@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 export default function MainContent({ toggleSidebar, isSidebarVisible }) {
   const navigate = useNavigate();
   return (
-    <main className="flex-1 bg-white">
+    <main className="w-full flex-1 bg-white">
       <div className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-white p-4">
         {!isSidebarVisible && (
           <>

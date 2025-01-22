@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { imageUpload } from "../../../apis/utils";
 import Loading from "../../../components/Loading";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddProduct() {
   const axiosSecure = useAxiosSecure();
@@ -14,8 +14,9 @@ export default function AddProduct() {
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const [tags, setTags] = useState([]);
+  const navigate = useNavigate();
 
-  const { data: product = [], refetch } = useQuery({
+  const { data: product = {}, refetch } = useQuery({
     queryKey: ["product", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/products/${id}`);
@@ -84,6 +85,7 @@ export default function AddProduct() {
       await axiosSecure.put(`/products/${id}`, productData);
       toast.success("Product updated successfully");
       refetch();
+      navigate(`/products/${id}`);
     } catch (err) {
       console.log(err);
     } finally {
