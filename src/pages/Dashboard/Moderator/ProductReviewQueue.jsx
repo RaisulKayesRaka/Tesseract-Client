@@ -10,9 +10,9 @@ export default function ProductReviewQueue() {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { data: products = [], refetch } = useQuery({
-    queryKey: ["all-products"],
+    queryKey: ["queued-products"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/all-products");
+      const res = await axiosSecure.get("/queued-products");
       return res?.data;
     },
   });
