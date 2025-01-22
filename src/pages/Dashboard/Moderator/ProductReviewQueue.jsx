@@ -160,13 +160,15 @@ export default function ProductReviewQueue() {
                       </button>
                       <button
                         onClick={() => handleMakeAccepted(product?._id)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
+                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                        disabled={product?.status === "Accepted"}
                       >
                         Accept <IoMdCheckmarkCircle />
                       </button>
                       <button
                         onClick={() => handleMakeRejected(product?._id)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
+                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                        disabled={product?.status === "Rejected"}
                       >
                         Reject <MdCancel />
                       </button>
