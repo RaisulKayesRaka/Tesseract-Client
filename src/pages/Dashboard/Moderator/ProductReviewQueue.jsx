@@ -54,7 +54,7 @@ export default function ProductReviewQueue() {
     const makeAccepted = async () => {
       const res = await axiosSecure.patch(`/products/make-accepted/${id}`);
       if (res?.data?.modifiedCount > 0) {
-        toast.success("Product made accepted successfully");
+        toast.success("Product accepted successfully");
         refetch();
       }
     };
@@ -66,6 +66,39 @@ export default function ProductReviewQueue() {
           <button
             onClick={() => {
               makeAccepted();
+              toast.dismiss(t.id);
+            }}
+            className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
+  const handleMakeRejected = (id) => {
+    const makeRejected = async () => {
+      const res = await axiosSecure.patch(`/products/make-rejected/${id}`);
+      if (res?.data?.modifiedCount > 0) {
+        toast.success("Product rejected successfully");
+        refetch();
+      }
+    };
+
+    toast((t) => (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div>Are you sure you want to reject this product?</div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              makeRejected();
               toast.dismiss(t.id);
             }}
             className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
