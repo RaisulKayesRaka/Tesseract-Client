@@ -9,6 +9,8 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const itemsPerPage = 6;
 
   useEffect(() => {
@@ -20,14 +22,16 @@ export default function Products() {
   }, [axiosPublic]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchProducts = async () => {
       const res = await axiosPublic.get(
-        `/products?page=${currentPage}&size=${itemsPerPage}`,
+        `/products?page=${currentPage}&size=${itemsPerPage}&search=${search}`,
       );
       setProducts(res?.data);
+      setLoading(false);
     };
     fetchProducts();
-  }, [axiosPublic, currentPage, itemsPerPage]);
+  }, [axiosPublic, currentPage, itemsPerPage, search]);
 
   const handlePrevPage = () => {
     if (currentPage > 0) {
@@ -41,40 +45,39 @@ export default function Products() {
     }
   };
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    setCurrentPage(0);
+  };
+
   return (
     <>
       <section className="mx-auto my-8 w-11/12 max-w-screen-xl">
         <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
           <h2 className="text-2xl font-semibold">Products</h2>
           <input
-            onChange={(e) => {
-              console.log(e.target.value);
-            }}
+            onChange={handleSearch}
             type="text"
             name="search"
             placeholder="Search by tag..."
             className="w-full max-w-sm rounded-lg border-2 border-gray-600 px-4 py-2 text-sm"
           />
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product?._id} product={product} />
-          ))}
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <ProductCard key={product?._id} product={product} />
+            ))}
+          </div>
+        )}
 
         <section className="my-4 flex items-center justify-between border-gray-200 bg-white">
           <div className="flex flex-1 items-center justify-between">
             <div className="hidden sm:block">
               <p className="text-sm">
-                Showing{" "}
-                <span className="font-medium">
-                  {currentPage * itemsPerPage + 1}
-                </span>{" "}
-                to{" "}
-                <span className="font-medium">
-                  {Math.min((currentPage + 1) * itemsPerPage, count)}
-                </span>{" "}
-                of <span className="font-medium">{count}</span> results
+                Page <span className="font-medium">{currentPage + 1}</span>
               </p>
             </div>
             <div className="flex flex-1 justify-center gap-1 sm:justify-end">
