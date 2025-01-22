@@ -23,7 +23,7 @@ export default function ProductCard({ product }) {
                   key={index}
                   className="inline-block rounded-full bg-gray-100 px-2"
                 >
-                  {tag}
+                  {tag?.id}
                 </div>
               ))}
             </div>

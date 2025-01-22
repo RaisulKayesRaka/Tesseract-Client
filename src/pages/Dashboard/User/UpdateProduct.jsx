@@ -5,11 +5,24 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../apis/utils";
 import Loading from "../../../components/Loading";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+
 export default function AddProduct() {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const [tags, setTags] = useState([]);
+
+  const { data: product = [], refetch } = useQuery({
+    queryKey: ["product", id],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/products/${id}`);
+      setTags(data?.productTags);
+      return data;
+    },
+  });
 
   const handleDelete = (index) => {
     setTags(tags.filter((_, i) => i !== index));
@@ -22,18 +35,13 @@ export default function AddProduct() {
   };
 
   const handleAddition = (tag) => {
-    setTags((prevTags) => {
-      return [...prevTags, tag];
-    });
+    setTags((prevTags) => [...prevTags, tag]);
   };
 
   const handleDrag = (tag, currPos, newPos) => {
     const newTags = tags.slice();
-
     newTags.splice(currPos, 1);
     newTags.splice(newPos, 0, tag);
-
-    // re-render
     setTags(newTags);
   };
 
@@ -56,9 +64,11 @@ export default function AddProduct() {
     const ownerName = user?.displayName;
     const ownerImage = user?.photoURL;
     const ownerEmail = user?.email;
-    const type = "Normal";
-    const status = "Pending";
-    const productImageUrl = await imageUpload(productImage);
+
+    const productImageUrl = productImage
+      ? await imageUpload(productImage)
+      : product?.productImage;
+
     const productData = {
       productName,
       productImage: productImageUrl,
@@ -68,18 +78,12 @@ export default function AddProduct() {
       ownerName,
       ownerImage,
       ownerEmail,
-      type,
-      status,
-      upvotes: 0,
-      downvotes: 0,
-      date: new Date().toISOString(),
     };
 
     try {
-      await axiosSecure.post("/products", productData);
-      toast.success("Product added successfully");
-      form.reset();
-      setTags([]);
+      await axiosSecure.put(`/products/${id}`, productData);
+      toast.success("Product updated successfully");
+      refetch();
     } catch (err) {
       console.log(err);
     } finally {
@@ -93,7 +97,7 @@ export default function AddProduct() {
         <Loading />
       ) : (
         <section>
-          <h1 className="text-xl font-semibold">Add Product</h1>
+          <h1 className="text-xl font-semibold">Update Product</h1>
           <div>
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
               <div>
@@ -104,9 +108,13 @@ export default function AddProduct() {
                   type="text"
                   name="productName"
                   id="productName"
+                  defaultValue={product?.productName}
                   className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
                   placeholder="Product name"
                   required
+                  onChange={(e) => {
+                    product.productName = e.target.value;
+                  }}
                 />
               </div>
               <div>
@@ -119,7 +127,6 @@ export default function AddProduct() {
                   id="productImage"
                   className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
                   accept="image/*"
-                  required
                 />
               </div>
               <div>
@@ -130,8 +137,12 @@ export default function AddProduct() {
                   name="productDescription"
                   id="productDescription"
                   placeholder="Product description"
+                  defaultValue={product?.productDescription}
                   className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
                   required
+                  onChange={(e) => {
+                    product.productDescription = e.target.value;
+                  }}
                 ></textarea>
               </div>
               <div>
@@ -142,9 +153,13 @@ export default function AddProduct() {
                   type="url"
                   name="externalLink"
                   id="externalLink"
+                  defaultValue={product?.externalLink}
                   className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
                   placeholder="Website link or landing page link of the product"
                   required
+                  onChange={(e) => {
+                    product.externalLink = e.target.value;
+                  }}
                 />
               </div>
               <div>
@@ -198,7 +213,6 @@ export default function AddProduct() {
                 <ReactTags
                   tags={tags}
                   inputFieldPosition="top"
-                  // suggestions={suggestions}
                   handleDelete={handleDelete}
                   handleAddition={handleAddition}
                   handleDrag={handleDrag}
