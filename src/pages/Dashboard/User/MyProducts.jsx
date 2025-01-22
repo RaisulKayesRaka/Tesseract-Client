@@ -73,7 +73,10 @@ export default function MyProducts() {
               </thead>
               <tbody>
                 {products.map((product) => (
-                  <tr key={product?._id} className="transition hover:bg-gray-50">
+                  <tr
+                    key={product?._id}
+                    className="transition hover:bg-gray-50"
+                  >
                     <td className="border-t px-4 py-3">
                       {product?.productName}
                     </td>
@@ -83,7 +86,7 @@ export default function MyProducts() {
                         className={`inline-block rounded-full px-2 py-0.5 font-medium ${
                           product?.status === "Pending"
                             ? "bg-yellow-100 text-yellow-600"
-                            : product?.status === "Approved"
+                            : product?.status === "Accepted"
                               ? "bg-green-100 text-green-600"
                               : "bg-red-100 text-red-600"
                         }`}
