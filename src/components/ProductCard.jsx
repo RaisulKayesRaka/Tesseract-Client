@@ -11,10 +11,11 @@ import useAuth from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ProductCard({ product, refetch }) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: isUpvoted, refetch: refetchIsUpvoted } = useQuery({
+  const { data: isUpvoted = false, refetch: refetchIsUpvoted } = useQuery({
+    enabled: !loading && !!product?._id,
     queryKey: ["isUpvoted", product?._id, user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
@@ -24,7 +25,8 @@ export default function ProductCard({ product, refetch }) {
     },
   });
 
-  const { data: isDownvoted, refetch: refetchIsDownvoted } = useQuery({
+  const { data: isDownvoted = false, refetch: refetchIsDownvoted } = useQuery({
+    enabled: !loading && !!product?._id,
     queryKey: ["isDownvoted", product?._id, user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(

@@ -1,6 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { BsCaretDown, BsCaretUp, BsStar, BsStarFill } from "react-icons/bs";
+import {
+  BsCaretDown,
+  BsCaretDownFill,
+  BsCaretUp,
+  BsCaretUpFill,
+  BsStar,
+  BsStarFill,
+} from "react-icons/bs";
 import { FaPen } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { GoReport } from "react-icons/go";
@@ -15,10 +22,14 @@ import toast from "react-hot-toast";
 export default function ProductDetails() {
   const [rating, setRating] = useState(0);
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: product = {}, isLoading } = useQuery({
+  const {
+    data: product = {},
+    refetch: refetchProduct,
+    isLoading,
+  } = useQuery({
     queryKey: ["product", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/products/${id}`);
@@ -26,10 +37,32 @@ export default function ProductDetails() {
     },
   });
 
+  const { data: isUpvoted = false, refetch: refetchIsUpvoted } = useQuery({
+    enabled: !loading && !!product?._id,
+    queryKey: ["isUpvoted", product?._id, user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/products/is-upvoted/${product?._id}?email=${user?.email}`,
+      );
+      return data;
+    },
+  });
+
+  const { data: isDownvoted = false, refetch: refetchIsDownvoted } = useQuery({
+    enabled: !loading && !!product?._id,
+    queryKey: ["isDownvoted", product?._id, user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/products/is-downvoted/${product?._id}?email=${user?.email}`,
+      );
+      return data;
+    },
+  });
+
   const {
     data: reviews = [],
     isLoading: isLoadingReviews,
-    refetch,
+    refetch: refetchReviews,
   } = useQuery({
     queryKey: ["reviews", id],
     queryFn: async () => {
@@ -37,10 +70,6 @@ export default function ProductDetails() {
       return data;
     },
   });
-
-  if (isLoading || isLoadingReviews) {
-    return <Loading />;
-  }
 
   const handleAddReview = async (e) => {
     e.preventDefault();
@@ -66,7 +95,7 @@ export default function ProductDetails() {
     if (data?.insertedId) {
       toast.success("Review added successfully");
       form.reset();
-      refetch();
+      refetchReviews();
     }
     document.getElementById("add-review-modal").classList.add("hidden");
   };
@@ -76,7 +105,7 @@ export default function ProductDetails() {
       const res = await axiosSecure.patch(`/products/make-reported/${id}`);
       if (res?.data?.modifiedCount > 0) {
         toast.success("Product reported successfully");
-        refetch();
+        refetchReviews();
       }
     };
 
@@ -103,6 +132,34 @@ export default function ProductDetails() {
       </div>
     ));
   };
+
+  const handleUpvote = async () => {
+    isDownvoted && handleDownvote();
+    const res = await axiosSecure.put(
+      `/products/upvote/${product?._id}?email=${user?.email}`,
+    );
+    if (res?.data?.modifiedCount > 0) {
+      refetchIsUpvoted();
+      refetchProduct();
+    }
+  };
+
+  const handleDownvote = async () => {
+    isUpvoted && handleUpvote();
+    console.log(id);
+    console.log(product?._id);
+    const res = await axiosSecure.put(
+      `/products/downvote/${product?._id}?email=${user?.email}`,
+    );
+    if (res.data.modifiedCount > 0) {
+      refetchIsDownvoted();
+      refetchProduct();
+    }
+  };
+
+  if (isLoading || isLoadingReviews) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -150,17 +207,33 @@ export default function ProductDetails() {
 
         <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex w-full max-w-sm justify-between gap-4">
-            <button className="flex w-full items-center justify-center rounded-lg border hover:bg-gray-50">
+            <button
+              disabled={user?.email === product?.ownerEmail}
+              onClick={handleUpvote}
+              className={`${isUpvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
+            >
               <div className="flex items-center justify-center border-r p-2">
-                <BsCaretUp className="text-xl" />
+                {isUpvoted ? (
+                  <BsCaretUpFill className="text-xl" />
+                ) : (
+                  <BsCaretUp className="text-xl" />
+                )}
               </div>
               <div className="w-full px-2 font-semibold">
                 {product?.upvotes}
               </div>
             </button>
-            <button className="flex w-full items-center justify-center rounded-lg border hover:bg-gray-50">
+            <button
+              disabled={user?.email === product?.ownerEmail}
+              onClick={handleDownvote}
+              className={`${isDownvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
+            >
               <div className="flex items-center justify-center border-r p-2">
-                <BsCaretDown className="text-xl" />
+                {isDownvoted ? (
+                  <BsCaretDownFill className="text-xl" />
+                ) : (
+                  <BsCaretDown className="text-xl" />
+                )}
               </div>
               <div className="w-full px-2 font-semibold">
                 {product?.downvotes}
