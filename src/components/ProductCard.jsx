@@ -1,4 +1,9 @@
-import { BsCaretDown, BsCaretUp, BsCaretUpFill } from "react-icons/bs";
+import {
+  BsCaretDown,
+  BsCaretDownFill,
+  BsCaretUp,
+  BsCaretUpFill,
+} from "react-icons/bs";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -19,12 +24,34 @@ export default function ProductCard({ product, refetch }) {
     },
   });
 
+  const { data: isDownvoted, refetch: refetchIsDownvoted } = useQuery({
+    queryKey: ["isDownvoted", product?._id, user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/products/is-downvoted/${product?._id}?email=${user?.email}`,
+      );
+      return data;
+    },
+  });
+
   const handleUpvote = async () => {
+    isDownvoted && handleDownvote();
     const res = await axiosSecure.put(
       `/products/upvote/${product?._id}?email=${user?.email}`,
     );
     if (res.data.modifiedCount > 0) {
       refetchIsUpvoted();
+      refetch();
+    }
+  };
+
+  const handleDownvote = async () => {
+    isUpvoted && handleUpvote();
+    const res = await axiosSecure.put(
+      `/products/downvote/${product?._id}?email=${user?.email}`,
+    );
+    if (res.data.modifiedCount > 0) {
+      refetchIsDownvoted();
       refetch();
     }
   };
@@ -70,9 +97,16 @@ export default function ProductCard({ product, refetch }) {
             </div>
             <div className="w-full px-2 font-semibold">{product?.upvotes}</div>
           </button>
-          <button className="flex w-full items-center justify-center rounded-lg border hover:bg-gray-50">
+          <button
+            onClick={handleDownvote}
+            className={`${isDownvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50`}
+          >
             <div className="flex items-center justify-center border-r p-2">
-              <BsCaretDown className="text-xl" />
+              {isDownvoted ? (
+                <BsCaretDownFill className="text-xl" />
+              ) : (
+                <BsCaretDown className="text-xl" />
+              )}
             </div>
             <div className="w-full px-2 font-semibold">
               {product?.downvotes}
