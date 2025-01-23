@@ -27,7 +27,7 @@ export default function ProductDetails() {
   });
 
   const {
-    data: reviews,
+    data: reviews = [],
     isLoading: isLoadingReviews,
     refetch,
   } = useQuery({

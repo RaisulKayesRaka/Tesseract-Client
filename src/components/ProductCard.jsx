@@ -85,8 +85,9 @@ export default function ProductCard({ product, refetch }) {
         <hr />
         <div className="flex w-full justify-between gap-4">
           <button
+            disabled={user?.email === product?.ownerEmail}
             onClick={handleUpvote}
-            className={`${isUpvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50`}
+            className={`${isUpvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
           >
             <div className="flex items-center justify-center border-r p-2">
               {isUpvoted ? (
@@ -98,8 +99,9 @@ export default function ProductCard({ product, refetch }) {
             <div className="w-full px-2 font-semibold">{product?.upvotes}</div>
           </button>
           <button
+            disabled={user?.email === product?.ownerEmail}
             onClick={handleDownvote}
-            className={`${isDownvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50`}
+            className={`${isDownvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
           >
             <div className="flex items-center justify-center border-r p-2">
               {isDownvoted ? (
