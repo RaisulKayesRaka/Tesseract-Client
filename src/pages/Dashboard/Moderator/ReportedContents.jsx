@@ -56,47 +56,53 @@ export default function ReportedContents() {
           <h1 className="text-xl font-semibold">Reported Products</h1>
         </div>
 
-        <div className="mt-6 rounded-lg border border-gray-800">
-          <div className="overflow-x-auto">
-            <table className="w-full table-auto text-left text-sm">
-              <thead className="bg-gray-800 text-white">
-                <tr>
-                  <th className="whitespace-nowrap p-4 font-semibold">
-                    Product Name
-                  </th>
-                  <th className="p-4 font-semibold">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product) => (
-                  <tr
-                    key={product?._id}
-                    className="transition hover:bg-gray-50"
-                  >
-                    <td className="border-t px-4 py-3">
-                      {product?.productName}
-                    </td>
-
-                    <td className="space-x-4 whitespace-nowrap border-t px-4 py-3">
-                      <button
-                        onClick={() => navigate(`/products/${product?._id}`)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
-                      >
-                        View Details <FaRectangleList />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(product?._id)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
-                      >
-                        Delete <MdDelete />
-                      </button>
-                    </td>
+        {products.length === 0 ? (
+          <h2 className="mt-6 text-center text-gray-600">
+            No reported products.
+          </h2>
+        ) : (
+          <div className="mt-6 rounded-lg border border-gray-800">
+            <div className="overflow-x-auto">
+              <table className="w-full table-auto text-left text-sm">
+                <thead className="bg-gray-800 text-white">
+                  <tr>
+                    <th className="whitespace-nowrap p-4 font-semibold">
+                      Product Name
+                    </th>
+                    <th className="p-4 font-semibold">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr
+                      key={product?._id}
+                      className="transition hover:bg-gray-50"
+                    >
+                      <td className="border-t px-4 py-3">
+                        {product?.productName}
+                      </td>
+
+                      <td className="space-x-4 whitespace-nowrap border-t px-4 py-3">
+                        <button
+                          onClick={() => navigate(`/products/${product?._id}`)}
+                          className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
+                        >
+                          View Details <FaRectangleList />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product?._id)}
+                          className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
+                        >
+                          Delete <MdDelete />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );

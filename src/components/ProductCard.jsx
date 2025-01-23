@@ -1,8 +1,34 @@
-import { BsCaretDown, BsCaretUp } from "react-icons/bs";
+import { BsCaretDown, BsCaretUp, BsCaretUpFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAuth from "../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, refetch }) {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: isUpvoted, refetch: refetchIsUpvoted } = useQuery({
+    queryKey: ["isUpvoted", product?._id, user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/products/is-upvoted/${product?._id}?email=${user?.email}`,
+      );
+      return data;
+    },
+  });
+
+  const handleUpvote = async () => {
+    const res = await axiosSecure.put(
+      `/products/upvote/${product?._id}?email=${user?.email}`,
+    );
+    if (res.data.modifiedCount > 0) {
+      refetchIsUpvoted();
+      refetch();
+    }
+  };
+
   return (
     <>
       <div className="group flex flex-col space-y-4 rounded-lg border bg-white p-4">
@@ -31,9 +57,16 @@ export default function ProductCard({ product }) {
         </div>
         <hr />
         <div className="flex w-full justify-between gap-4">
-          <button className="flex w-full items-center justify-center rounded-lg border hover:bg-gray-50">
+          <button
+            onClick={handleUpvote}
+            className={`${isUpvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50`}
+          >
             <div className="flex items-center justify-center border-r p-2">
-              <BsCaretUp className="text-xl" />
+              {isUpvoted ? (
+                <BsCaretUpFill className="text-xl" />
+              ) : (
+                <BsCaretUp className="text-xl" />
+              )}
             </div>
             <div className="w-full px-2 font-semibold">{product?.upvotes}</div>
           </button>
@@ -53,4 +86,5 @@ export default function ProductCard({ product }) {
 
 ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
+  refetch: PropTypes.func.isRequired,
 };

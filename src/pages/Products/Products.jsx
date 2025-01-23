@@ -1,37 +1,39 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import ProductCard from "../../components/ProductCard";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Loading";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Products() {
-  const axiosPublic = useAxiosPublic();
-  const [products, setProducts] = useState([]);
+  const axiosSecure = useAxiosSecure();
+  // const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const itemsPerPage = 6;
 
   useEffect(() => {
     const fetchProductsCount = async () => {
-      const res = await axiosPublic.get("/products-count");
+      const res = await axiosSecure.get("/products-count");
       setCount(res?.data?.count);
     };
     fetchProductsCount();
-  }, [axiosPublic]);
+  }, [axiosSecure]);
 
-  useEffect(() => {
-    setLoading(true);
-    const fetchProducts = async () => {
-      const res = await axiosPublic.get(
+  const {
+    data: products = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["products", currentPage, itemsPerPage, search],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
         `/accepted-products?page=${currentPage}&size=${itemsPerPage}&search=${search}`,
       );
-      setProducts(res?.data);
-      setLoading(false);
-    };
-    fetchProducts();
-  }, [axiosPublic, currentPage, itemsPerPage, search]);
+      return data;
+    },
+  });
 
   const handlePrevPage = () => {
     if (currentPage > 0) {
@@ -63,12 +65,16 @@ export default function Products() {
             className="w-full max-w-sm rounded-lg border-2 border-gray-600 px-4 py-2 text-sm"
           />
         </div>
-        {loading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => (
-              <ProductCard key={product?._id} product={product} />
+              <ProductCard
+                key={product?._id}
+                product={product}
+                refetch={refetch}
+              />
             ))}
           </div>
         )}

@@ -186,7 +186,7 @@ export default function ProductDetails() {
           <div className="mt-2 divide-y">
             {reviews.length === 0 && (
               <h2 className="mt-4 text-center font-semibold text-gray-600">
-                No reviews yet
+                No reviews yet.
               </h2>
             )}
             {reviews.map((review) => (

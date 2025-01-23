@@ -123,6 +123,9 @@ export default function ProductReviewQueue() {
           <h1 className="text-xl font-semibold">Product Review Queue</h1>
         </div>
 
+        {products.length === 0 ? (
+          <h2 className="mt-6 text-center text-gray-600">No products to review. </h2>
+        ) : (
         <div className="mt-6 rounded-lg border border-gray-800">
           <div className="overflow-x-auto">
             <table className="w-full table-auto text-left text-sm">
@@ -178,7 +181,7 @@ export default function ProductReviewQueue() {
               </tbody>
             </table>
           </div>
-        </div>
+        </div>)}
       </section>
     </>
   );

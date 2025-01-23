@@ -11,7 +11,7 @@ import Loading from "./Loading";
 export default function FeaturedProducts() {
   const axiosPublic = useAxiosPublic();
 
-  const { data: featuredProducts, isLoading } = useQuery({
+  const { data: featuredProducts, isLoading, refetch } = useQuery({
     queryKey: ["featuredProducts"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/featured-products");
@@ -34,7 +34,7 @@ export default function FeaturedProducts() {
         mousewheel={true}
         loop={true}
         autoplay={{
-          delay: 2000,
+          delay: 1000,
           pauseOnMouseEnter: true,
           disableOnInteraction: false,
         }}
@@ -57,7 +57,7 @@ export default function FeaturedProducts() {
       >
         {featuredProducts.map((product) => (
           <SwiperSlide key={product._id}>
-            <ProductCard product={product} />
+            <ProductCard product={product} refetch={refetch} />
           </SwiperSlide>
         ))}
       </Swiper>
