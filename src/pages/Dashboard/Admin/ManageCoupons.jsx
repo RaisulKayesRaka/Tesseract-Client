@@ -69,6 +69,39 @@ export default function ManageCoupons() {
       .classList.add("hidden");
   };
 
+  const handleDeleteCoupon = (id) => {
+    const deleteCoupon = async () => {
+      const res = await axiosSecure.delete(`/coupons/${id}`);
+      if (res?.data?.deletedCount > 0) {
+        toast.success("Coupon deleted successfully");
+        refetch();
+      }
+    };
+
+    toast((t) => (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div>Are you sure you want to delete this coupon?</div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              deleteCoupon();
+              toast.dismiss(t.id);
+            }}
+            className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-semibold"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <>
       <section>
@@ -128,7 +161,10 @@ export default function ManageCoupons() {
                   >
                     <MdEdit />
                   </button>
-                  <button className="inline-block rounded-lg bg-gray-800 p-2 text-white hover:bg-black focus:scale-95">
+                  <button
+                    onClick={() => handleDeleteCoupon(coupon._id)}
+                    className="inline-block rounded-lg bg-gray-800 p-2 text-white hover:bg-black focus:scale-95"
+                  >
                     <MdDelete />
                   </button>
                 </div>

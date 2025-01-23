@@ -27,7 +27,7 @@ export default function ReportedContents() {
 
     toast((t) => (
       <div className="flex flex-col items-center justify-center gap-4">
-        <div>Are you sure you want to delete?</div>
+        <div>Are you sure you want to delete this product?</div>
         <div className="flex items-center gap-4">
           <button
             onClick={() => {
