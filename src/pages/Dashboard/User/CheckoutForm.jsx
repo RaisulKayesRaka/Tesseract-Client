@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import "./CheckoutForm.css";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 
 const CheckoutForm = ({ handleCloseModal, amount, refetchIsVerified }) => {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
@@ -69,9 +67,13 @@ const CheckoutForm = ({ handleCloseModal, amount, refetchIsVerified }) => {
 
     if (paymentIntent.status === "succeeded") {
       try {
-        toast.success("Order Successful!");
-        refetchIsVerified();
-        navigate("/dashboard/my-profile");
+        const { data } = await axiosSecure.put(
+          `/users/verify?email=${user?.email}`,
+        );
+        if (data?.modifiedCount > 0) {
+          refetchIsVerified();
+          toast.success("Payment successful");
+        }
       } catch (err) {
         console.log(err);
       } finally {
