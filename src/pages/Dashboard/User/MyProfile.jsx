@@ -2,10 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { HiShieldCheck } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
+import { loadStripe } from "@stripe/stripe-js";
+import { useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
 export default function MyProfile() {
+  const [amount, setAmount] = useState(1200);
   const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuth();
-  const { data: isVerified = false } = useQuery({
+  const { data: isVerified = false, refetch: refetchIsVerified } = useQuery({
     queryKey: ["isVerified", user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
@@ -13,6 +22,11 @@ export default function MyProfile() {
       return data?.isVerified;
     },
   });
+
+  const handleCloseModal = () => {
+    document.getElementById("subscribe-modal").classList.add("hidden");
+  };
+
   return (
     <>
       <section className="flex h-[calc(100vh-96px)] items-center justify-center">
@@ -36,9 +50,44 @@ export default function MyProfile() {
 
           <div className="mt-4 flex w-full max-w-96 flex-col items-center justify-center gap-2 rounded-lg border border-gray-800 bg-gray-50 p-4">
             <h3>Subcribe for membership</h3>
-            <button className="rounded-lg bg-gray-800 px-4 py-2 font-semibold text-white">
+            <button
+              onClick={() => {
+                document
+                  .getElementById("subscribe-modal")
+                  .classList.remove("hidden");
+              }}
+              className="rounded-lg bg-gray-800 px-4 py-2 font-semibold text-white"
+            >
               Subscribe $9.99
             </button>
+          </div>
+        </div>
+      </section>
+      <section
+        id="subscribe-modal"
+        className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300"
+      >
+        <div className="flex h-full items-center justify-center">
+          <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("subscribe-modal")
+                  .classList.add("hidden")
+              }
+              className="absolute right-4 top-4 rounded-full bg-gray-800 p-1.5 font-semibold text-white hover:bg-black focus:scale-95"
+            >
+              <IoClose />
+            </button>
+            <h2 className="mt-4 block text-lg font-semibold">Pay $9.99</h2>
+
+            <Elements stripe={stripePromise}>
+              <CheckoutForm
+                handleCloseModal={handleCloseModal}
+                amount={amount}
+                refetchIsVerified={refetchIsVerified}
+              />
+            </Elements>
           </div>
         </div>
       </section>
