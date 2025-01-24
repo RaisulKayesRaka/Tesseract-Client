@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Loading";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 export default function Products() {
   const axiosSecure = useAxiosSecure();
@@ -54,6 +55,9 @@ export default function Products() {
 
   return (
     <>
+      <Helmet>
+        <title>Products | Tesseract</title>
+      </Helmet>
       <section className="mx-auto my-8 w-11/12 max-w-screen-xl">
         <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
           <h2 className="text-2xl font-semibold">Products</h2>
@@ -82,9 +86,24 @@ export default function Products() {
         <section className="my-4 flex items-center justify-between border-gray-200 bg-white">
           <div className="flex flex-1 items-center justify-between">
             <div className="hidden sm:block">
-              <p className="text-sm">
-                Page <span className="font-medium">{currentPage + 1}</span>
-              </p>
+              <label htmlFor="perPage" className="sr-only">
+                Current Page
+              </label>
+              <select
+                id="currentPage"
+                value={currentPage}
+                onChange={(e) => setCurrentPage(Number(e.target.value))}
+                className="rounded-md border-gray-300 border px-3 py-2 text-sm"
+              >
+                {Array.from(
+                  { length: Math.ceil(count / itemsPerPage) },
+                  (_, i) => (
+                    <option key={i} value={i}>
+                      {i + 1}
+                    </option>
+                  ),
+                )}
+              </select>
             </div>
             <div className="flex flex-1 justify-center gap-1 sm:justify-end">
               <nav

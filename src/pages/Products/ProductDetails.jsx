@@ -18,6 +18,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Loading";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export default function ProductDetails() {
   const [rating, setRating] = useState(0);
@@ -163,6 +164,9 @@ export default function ProductDetails() {
 
   return (
     <>
+      <Helmet>
+        <title>{product?.productName} | Tesseract</title>
+      </Helmet>
       <section className="mx-auto my-8 w-11/12 max-w-screen-xl">
         <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <div className="flex flex-wrap gap-4">

@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export default function MyProducts() {
   const axiosSecure = useAxiosSecure();
@@ -53,13 +54,18 @@ export default function MyProducts() {
 
   return (
     <>
+      <Helmet>
+        <title>My Products | Tesseract</title>
+      </Helmet>
       <section>
         <div>
           <h1 className="text-xl font-semibold">My Products</h1>
         </div>
 
         {products.length === 0 ? (
-          <h2 className="mt-6 text-center text-gray-600">No products added yet.</h2>
+          <h2 className="mt-6 text-center text-gray-600">
+            No products added yet.
+          </h2>
         ) : (
           <div className="mt-6 rounded-lg border border-gray-800">
             <div className="overflow-x-auto">

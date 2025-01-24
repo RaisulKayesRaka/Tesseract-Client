@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export default function ReportedContents() {
   const axiosSecure = useAxiosSecure();
@@ -51,6 +52,9 @@ export default function ReportedContents() {
 
   return (
     <>
+      <Helmet>
+        <title>Reported Products | Tesseract</title>
+      </Helmet>
       <section>
         <div>
           <h1 className="text-xl font-semibold">Reported Products</h1>

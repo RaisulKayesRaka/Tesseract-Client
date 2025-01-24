@@ -3,6 +3,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 export default function ManageCoupons() {
   const axiosSecure = useAxiosSecure();
@@ -104,6 +105,9 @@ export default function ManageCoupons() {
 
   return (
     <>
+      <Helmet>
+        <title>Manage Coupons | Tesseract</title>
+      </Helmet>
       <section>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold">Coupons</h1>

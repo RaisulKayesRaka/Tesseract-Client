@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../apis/utils";
 import Loading from "../../../components/Loading";
+import { Helmet } from "react-helmet-async";
 export default function AddProduct() {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -94,6 +95,9 @@ export default function AddProduct() {
 
   return (
     <>
+      <Helmet>
+        <title>Add Product | Tesseract</title>
+      </Helmet>
       {loading ? (
         <Loading />
       ) : (

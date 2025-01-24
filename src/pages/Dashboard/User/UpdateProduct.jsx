@@ -7,6 +7,7 @@ import { imageUpload } from "../../../apis/utils";
 import Loading from "../../../components/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function AddProduct() {
   const axiosSecure = useAxiosSecure();
@@ -95,6 +96,9 @@ export default function AddProduct() {
 
   return (
     <>
+      <Helmet>
+        <title>Update Product | Tesseract</title>
+      </Helmet>
       {loading ? (
         <Loading />
       ) : (

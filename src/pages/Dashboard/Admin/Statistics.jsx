@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 export default function Statistics() {
   const axiosSecure = useAxiosSecure();
@@ -14,6 +15,9 @@ export default function Statistics() {
   });
   return (
     <>
+      <Helmet>
+        <title>Statistics | Tesseract</title>
+      </Helmet>
       <section className="flex h-[calc(100vh-96px)] items-center justify-center">
         <div className="">
           <div className="overflow-x-auto">

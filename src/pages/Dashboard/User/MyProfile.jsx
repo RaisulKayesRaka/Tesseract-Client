@@ -7,6 +7,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -50,6 +51,9 @@ export default function MyProfile() {
 
   return (
     <>
+      <Helmet>
+        <title>My Profile | Tesseract</title>
+      </Helmet>
       <section className="flex h-[calc(100vh-96px)] items-center justify-center">
         <div className="flex w-full flex-col items-center">
           <div className="mb-4">

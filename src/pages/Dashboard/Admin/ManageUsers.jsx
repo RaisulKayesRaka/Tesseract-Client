@@ -3,6 +3,7 @@ import { FaUserShield } from "react-icons/fa6";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export default function ManageUsers() {
   const axiosSecure = useAxiosSecure();
@@ -82,6 +83,9 @@ export default function ManageUsers() {
 
   return (
     <>
+      <Helmet>
+        <title>Manage Users | Tesseract</title>
+      </Helmet>
       <section>
         <div>
           <h1 className="text-xl font-semibold">Users</h1>
