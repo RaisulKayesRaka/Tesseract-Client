@@ -77,10 +77,14 @@ export default function AddProduct() {
     };
 
     try {
-      await axiosSecure.post("/products", productData);
-      toast.success("Product added successfully");
-      form.reset();
-      setTags([]);
+      const { data } = await axiosSecure.post("/products", productData);
+      if (data?.insertedId) {
+        toast.success("Product added successfully");
+        form.reset();
+        setTags([]);
+      } else {
+        toast.error(data?.message);
+      }
     } catch (err) {
       console.log(err);
     } finally {
