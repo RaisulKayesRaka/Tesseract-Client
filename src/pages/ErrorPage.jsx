@@ -12,7 +12,7 @@ export default function ErrorPage() {
         <img
           onClick={() => navigate("/")}
           className="w-32 cursor-pointer sm:w-36 md:w-40 lg:w-48"
-          src="../../src/assets/page-not-found.svg"
+          src="./page-not-found.svg"
           alt="Page Not Found"
         />
       </section>

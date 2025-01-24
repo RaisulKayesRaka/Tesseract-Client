@@ -90,7 +90,6 @@ export default function ProductDetails() {
       review,
       reviewDate: new Date().toISOString(),
     };
-    console.log(newReview);
 
     const { data } = await axiosSecure.post("/reviews", newReview);
     if (data?.insertedId) {
@@ -147,8 +146,6 @@ export default function ProductDetails() {
 
   const handleDownvote = async () => {
     isUpvoted && handleUpvote();
-    console.log(id);
-    console.log(product?._id);
     const res = await axiosSecure.put(
       `/products/downvote/${product?._id}?email=${user?.email}`,
     );

@@ -1,8 +1,17 @@
-# React + Vite
+# Tesseract
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tesseract is a platform designed to help users discover, share, and review the latest tech products, including web apps, AI tools, software, games, and mobile apps. It provides a seamless experience for users to explore trending products, post reviews, and upvote or downvote products. Additionally, it includes role-based functionality for moderators and admins to ensure the platform operates smoothly and remains user-friendly.
 
-Currently, two official plugins are available:
+## Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://tesseract-69d91.web.app/
+
+## Key Features
+
+- User Authentication
+- User Authorization
+- User, Moderator and Admin Dashboard
+- Payment Gateway Integration
+- Upvote and Downvote System
+- Product Reviews
+- Responsive Design

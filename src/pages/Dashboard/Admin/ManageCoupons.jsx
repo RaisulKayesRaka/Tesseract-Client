@@ -31,8 +31,6 @@ export default function ManageCoupons() {
       description,
     };
 
-    console.log(newCoupon);
-
     const { data } = await axiosSecure.post("/coupons", newCoupon);
     if (data?.insertedId) {
       toast.success("Coupon added successfully");
@@ -56,8 +54,6 @@ export default function ManageCoupons() {
       expiryDate: new Date(expiryDate).toISOString(),
       description,
     };
-
-    console.log(newCoupon);
 
     const { data } = await axiosSecure.put(`/coupons/${id}`, newCoupon);
     if (data?.modifiedCount) {
