@@ -23,6 +23,7 @@
     "react-rating": "^2.0.5",
     "react-router-dom": "^7.1.2",
     "react-tag-input": "^6.10.3",
+    "recharts": "^2.15.0",
     "swiper": "^11.2.1"
   },
   "devDependencies": {
