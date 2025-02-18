@@ -8,7 +8,11 @@ import Loading from "./Loading";
 export default function TrendingProducts() {
   const axiosPublic = useAxiosPublic();
 
-  const { data: trendingProducts, isLoading, refetch } = useQuery({
+  const {
+    data: trendingProducts,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["trendingProducts"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/trending-products");
@@ -32,7 +36,7 @@ export default function TrendingProducts() {
       <div className="mt-4">
         <Link
           to="/products"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black focus:scale-95"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black dark:hover:bg-gray-100"
         >
           Show All Products
           <FiArrowUpRight className="text-lg" />

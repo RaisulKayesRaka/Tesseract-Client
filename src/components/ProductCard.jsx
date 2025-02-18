@@ -60,9 +60,9 @@ export default function ProductCard({ product, refetch }) {
 
   return (
     <>
-      <div className="group flex flex-col space-y-4 rounded-lg border bg-white p-4">
+      <div className="group flex flex-col space-y-4 rounded-lg border p-4 dark:border-gray-700">
         <div className="flex flex-1 gap-4">
-          <div className="min-w-16">
+          <div className="min-w-16 rounded-lg bg-white">
             <img className="w-16 rounded-lg" src={product?.productImage} />
           </div>
           <div>
@@ -76,7 +76,7 @@ export default function ProductCard({ product, refetch }) {
               {product?.productTags.map((tag, index) => (
                 <div
                   key={index}
-                  className="inline-block rounded-full bg-gray-100 px-2"
+                  className="inline-block rounded-full bg-gray-100 px-2 dark:bg-gray-800"
                 >
                   {tag?.id}
                 </div>
@@ -84,14 +84,14 @@ export default function ProductCard({ product, refetch }) {
             </div>
           </div>
         </div>
-        <hr />
+        <hr className="dark:border-gray-700" />
         <div className="flex w-full justify-between gap-4">
           <button
             disabled={user?.email === product?.ownerEmail}
             onClick={handleUpvote}
-            className={`${isUpvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
+            className={`${isUpvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-900 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
           >
-            <div className="flex items-center justify-center border-r p-2">
+            <div className="flex items-center justify-center border-r p-2 dark:border-gray-700">
               {isUpvoted ? (
                 <BsCaretUpFill className="text-xl" />
               ) : (
@@ -103,9 +103,9 @@ export default function ProductCard({ product, refetch }) {
           <button
             disabled={user?.email === product?.ownerEmail}
             onClick={handleDownvote}
-            className={`${isDownvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
+            className={`${isUpvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-900 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
           >
-            <div className="flex items-center justify-center border-r p-2">
+            <div className="flex items-center justify-center border-r p-2 dark:border-gray-700">
               {isDownvoted ? (
                 <BsCaretDownFill className="text-xl" />
               ) : (

@@ -35,12 +35,12 @@ export default function Coupons() {
       >
         {coupons.map((coupon) => (
           <SwiperSlide key={coupon._id} className="mb-8">
-            <div className="space-y-3 rounded-lg border p-4">
-              <h2 className="text-center text-3xl font-bold text-gray-800">
+            <div className="space-y-3 rounded-lg border p-4 dark:border-gray-700">
+              <h2 className="text-center text-3xl font-bold">
                 {coupon?.couponCode}
               </h2>
               <div className="text-center">
-                <span className="rounded-full border border-gray-600 bg-gray-50 px-3 py-1 font-semibold">
+                <span className="rounded-full border border-gray-600 bg-gray-50 px-3 py-1 font-semibold dark:bg-gray-900">
                   {coupon?.discountAmount}%
                 </span>
               </div>

@@ -4,7 +4,7 @@ export default function Banner() {
     <>
       <section className="mx-auto w-11/12 max-w-screen-xl py-4">
         <div
-          className="flex flex-col items-center justify-center gap-4 rounded-lg bg-cover bg-no-repeat px-8 py-16 md:py-24 lg:py-32"
+          className="flex flex-col items-center justify-center gap-4 rounded-lg bg-cover bg-no-repeat px-8 py-16 text-black md:py-24 lg:py-32"
           style={{ backgroundImage: `url(${banner})` }}
         >
           <h1 className="max-w-prose text-center text-4xl font-semibold">

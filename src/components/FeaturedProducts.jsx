@@ -11,7 +11,11 @@ import Loading from "./Loading";
 export default function FeaturedProducts() {
   const axiosPublic = useAxiosPublic();
 
-  const { data: featuredProducts, isLoading, refetch } = useQuery({
+  const {
+    data: featuredProducts,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["featuredProducts"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/featured-products");
@@ -34,7 +38,7 @@ export default function FeaturedProducts() {
         mousewheel={true}
         loop={true}
         autoplay={{
-          delay: 1000,
+          delay: 2000,
           pauseOnMouseEnter: true,
           disableOnInteraction: false,
         }}

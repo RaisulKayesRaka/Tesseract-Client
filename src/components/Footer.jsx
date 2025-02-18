@@ -5,16 +5,26 @@ import {
   FaTwitter,
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useTheme } from "../providers/ThemeProvider";
 
 export default function Footer() {
+  const { theme } = useTheme();
   return (
     <>
       <hr />
-      <footer className="bg-white py-10">
+      <footer className="py-10">
         <div className="mx-auto grid w-11/12 max-w-screen-xl grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo and Description */}
           <div className="space-y-4">
-            <img src="/tesseract.png" alt="Tesseract Logo" className="h-12" />
+            {theme === "dark" ? (
+              <img
+                src="/tesseract-white.png"
+                alt="Tesseract Logo"
+                className="h-12"
+              />
+            ) : (
+              <img src="/tesseract.png" alt="Tesseract Logo" className="h-12" />
+            )}
             <h2 className="text-2xl font-semibold">Tesseract</h2>
             <p>
               Your one-stop platform to discover and share innovative tech
@@ -58,28 +68,16 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Follow Us</h3>
             <div className="flex space-x-4">
-              <a
-                href="https://facebook.com"
-                className="text-gray-700 hover:text-black"
-              >
+              <a href="https://facebook.com">
                 <FaFacebookF />
               </a>
-              <a
-                href="https://twitter.com"
-                className="text-gray-700 hover:text-black"
-              >
+              <a href="https://twitter.com">
                 <FaTwitter />
               </a>
-              <a
-                href="https://linkedin.com"
-                className="text-gray-700 hover:text-black"
-              >
+              <a href="https://linkedin.com">
                 <FaLinkedinIn />
               </a>
-              <a
-                href="https://instagram.com"
-                className="text-gray-700 hover:text-black"
-              >
+              <a href="https://instagram.com">
                 <FaInstagram />
               </a>
             </div>

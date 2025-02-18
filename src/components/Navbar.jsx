@@ -3,6 +3,7 @@ import { IoCloseOutline, IoMenuOutline } from "react-icons/io5";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../providers/ThemeProvider";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function Navbar() {
   const dropdownButtonRef = useRef(null);
   const [open, setOpen] = useState(false);
   const { user, logOut } = useAuth();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,15 +34,25 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b bg-white py-5 dark:bg-black">
+      <nav className="sticky top-0 z-50 border-b bg-white py-5 dark:border-gray-700 dark:bg-black">
         <div className="mx-auto flex w-11/12 max-w-screen-xl items-center justify-between">
           <section className="flex items-center justify-center gap-2">
-            <img
-              onClick={() => navigate("/")}
-              className="h-9 w-9 cursor-pointer"
-              src="/tesseract.png"
-              alt=""
-            />
+            {theme === "dark" ? (
+              <img
+                onClick={() => navigate("/")}
+                className="h-9 w-9 cursor-pointer"
+                src="/tesseract-white.png"
+                alt=""
+              />
+            ) : (
+              <img
+                onClick={() => navigate("/")}
+                className="h-9 w-9 cursor-pointer"
+                src="/tesseract.png"
+                alt=""
+              />
+            )}
+
             <h3
               onClick={() => navigate("/")}
               className="cursor-pointer text-3xl font-semibold"
@@ -83,21 +95,21 @@ export default function Navbar() {
                 {dropdownOpen && (
                   <div
                     ref={dropdownRef}
-                    className="absolute right-0 top-12 flex min-w-56 flex-col rounded-lg border bg-white py-2"
+                    className="absolute right-0 top-12 flex min-w-56 flex-col rounded-lg border bg-white py-2 dark:border-gray-700 dark:bg-black"
                   >
                     <p className="px-4 py-3 font-semibold">
                       {user?.displayName}
                     </p>
-                    <hr />
+                    <hr className="dark:border-gray-700" />
                     <Link
                       to="/dashboard"
-                      className="mt-2 px-4 py-2 text-black hover:bg-gray-50 focus:scale-95"
+                      className="mt-2 px-4 py-2 hover:bg-gray-50 focus:scale-95 dark:hover:bg-gray-900"
                     >
                       Dashboard
                     </Link>
                     <button
                       onClick={logOut}
-                      className="px-4 py-2 text-left text-black hover:bg-gray-50 focus:scale-95"
+                      className="px-4 py-2 text-left hover:bg-gray-50 focus:scale-95 dark:hover:bg-gray-900"
                     >
                       Logout
                     </button>
@@ -107,7 +119,7 @@ export default function Navbar() {
             ) : (
               <NavLink
                 to="/login"
-                className="hidden rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 sm:block"
+                className="hidden rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black sm:block"
               >
                 Login
               </NavLink>
@@ -121,7 +133,7 @@ export default function Navbar() {
             </button>
           </section>
           <section
-            className={`fixed left-0 top-0 z-50 block h-screen w-full bg-white transition-all duration-500 ease-in-out sm:hidden ${
+            className={`fixed left-0 top-0 z-50 block h-screen w-full bg-white transition-all duration-500 ease-in-out dark:bg-black sm:hidden ${
               open ? "translate-y-0" : "-translate-y-full"
             }`}
           >
@@ -153,7 +165,7 @@ export default function Navbar() {
                 </NavLink>
               </div>
               {user && user?.email ? (
-                <div className="w-full rounded-lg border py-4">
+                <div className="w-full rounded-lg border py-4 dark:border-gray-700">
                   <div className="flex items-center justify-center">
                     <img
                       className="h-24 w-24 rounded-full"
@@ -166,12 +178,12 @@ export default function Navbar() {
                     <p className="px-4 py-3 text-center font-semibold">
                       {user?.displayName}
                     </p>
-                    <hr />
+                    <hr className="dark:border-gray-700" />
                     <div className="flex flex-col">
                       <Link
                         to="/dashboard"
                         onClick={() => setOpen(false)}
-                        className="mt-2 px-4 py-2 text-center text-black hover:bg-gray-50 focus:scale-95"
+                        className="mt-2 px-4 py-2 text-center hover:bg-gray-50 focus:scale-95 dark:hover:bg-gray-900"
                       >
                         Dashboard
                       </Link>
@@ -180,7 +192,7 @@ export default function Navbar() {
                           logOut();
                           setOpen(false);
                         }}
-                        className="block px-4 py-2 text-center text-black hover:bg-gray-50 focus:scale-95"
+                        className="block px-4 py-2 text-center hover:bg-gray-50 focus:scale-95 dark:hover:bg-gray-900"
                       >
                         Logout
                       </button>
@@ -191,7 +203,7 @@ export default function Navbar() {
                 <NavLink
                   to="/login"
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg bg-black px-4 py-2 text-center text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95"
+                  className="block rounded-lg bg-black px-4 py-2 text-center text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                 >
                   Login
                 </NavLink>
