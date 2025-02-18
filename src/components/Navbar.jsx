@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { IoCloseOutline, IoMenuOutline } from "react-icons/io5";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b bg-white py-5">
+      <nav className="sticky top-0 z-50 border-b bg-white py-5 dark:bg-black">
         <div className="mx-auto flex w-11/12 max-w-screen-xl items-center justify-between">
           <section className="flex items-center justify-center gap-2">
             <img
@@ -65,6 +66,7 @@ export default function Navbar() {
             >
               Products
             </NavLink>
+            <ThemeToggle />
 
             {user && user?.email ? (
               <div
