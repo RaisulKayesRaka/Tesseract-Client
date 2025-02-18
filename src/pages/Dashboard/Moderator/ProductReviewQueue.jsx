@@ -132,10 +132,10 @@ export default function ProductReviewQueue() {
             No products to review.{" "}
           </h2>
         ) : (
-          <div className="mt-6 rounded-lg border border-gray-800">
+          <div className="mt-6 border-b dark:border-gray-700">
             <div className="overflow-x-auto">
               <table className="w-full table-auto text-left text-sm">
-                <thead className="bg-gray-800 text-white">
+                <thead className="bg-black text-white dark:bg-white dark:text-black">
                   <tr>
                     <th className="whitespace-nowrap p-4 font-semibold">
                       Product Name
@@ -147,36 +147,36 @@ export default function ProductReviewQueue() {
                   {products.map((product) => (
                     <tr
                       key={product?._id}
-                      className="transition hover:bg-gray-50"
+                      className="transition hover:bg-gray-50 dark:hover:bg-gray-900"
                     >
-                      <td className="border-t px-4 py-3">
+                      <td className="border-t px-4 py-3 dark:border-gray-700">
                         {product?.productName}
                       </td>
 
-                      <td className="space-x-4 whitespace-nowrap border-t px-4 py-3">
+                      <td className="space-x-4 whitespace-nowrap border-t px-4 py-3 dark:border-gray-700">
                         <button
                           onClick={() => navigate(`/products/${product?._id}`)}
-                          className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black"
+                          className="inline-flex items-center gap-2 rounded-lg bg-black px-3 py-1.5 font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black"
                         >
                           View Details <FaRectangleList />
                         </button>
                         <button
                           onClick={() => handleMakeFeatured(product?._id)}
-                          className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                          className="inline-flex items-center gap-2 rounded-lg bg-black px-3 py-1.5 font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-white dark:text-black dark:disabled:bg-gray-700"
                           disabled={product?.type === "Featured"}
                         >
                           Make Featured <MdFeaturedVideo />
                         </button>
                         <button
                           onClick={() => handleMakeAccepted(product?._id)}
-                          className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                          className="inline-flex items-center gap-2 rounded-lg bg-black px-3 py-1.5 font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-white dark:text-black dark:disabled:bg-gray-700"
                           disabled={product?.status === "Accepted"}
                         >
                           Accept <IoMdCheckmarkCircle />
                         </button>
                         <button
                           onClick={() => handleMakeRejected(product?._id)}
-                          className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                          className="inline-flex items-center gap-2 rounded-lg bg-black px-3 py-1.5 font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-white dark:text-black dark:disabled:bg-gray-700"
                           disabled={product?.status === "Rejected"}
                         >
                           Reject <MdCancel />

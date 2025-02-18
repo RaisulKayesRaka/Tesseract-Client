@@ -113,7 +113,7 @@ export default function ManageCoupons() {
                 .getElementById("add-coupon-modal")
                 .classList.remove("hidden")
             }
-            className="rounded-lg bg-gray-800 px-3 py-1.5 text-sm font-semibold text-white"
+            className="rounded-lg bg-black px-3 py-1.5 text-sm font-semibold text-white dark:bg-white dark:text-black"
           >
             Add Coupon
           </button>
@@ -127,9 +127,7 @@ export default function ManageCoupons() {
                 className="flex flex-col rounded-lg border border-gray-800 p-5"
               >
                 <div className="flex-1 space-y-2">
-                  <h2 className="text-xl font-bold text-gray-800">
-                    {coupon?.couponCode}
-                  </h2>
+                  <h2 className="text-xl font-bold">{coupon?.couponCode}</h2>
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Discount Amount:</span>
                     <span className="font-semibold">
@@ -157,13 +155,13 @@ export default function ManageCoupons() {
                         .getElementById(`update-coupon-modal-${coupon._id}`)
                         .classList.remove("hidden")
                     }
-                    className="inline-block rounded-lg bg-gray-800 p-2 text-white hover:bg-black focus:scale-95"
+                    className="inline-block rounded-lg bg-black p-2 text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                   >
                     <MdEdit />
                   </button>
                   <button
                     onClick={() => handleDeleteCoupon(coupon._id)}
-                    className="inline-block rounded-lg bg-gray-800 p-2 text-white hover:bg-black focus:scale-95"
+                    className="inline-block rounded-lg bg-black p-2 text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                   >
                     <MdDelete />
                   </button>
@@ -171,17 +169,17 @@ export default function ManageCoupons() {
               </section>
               <section
                 id={`update-coupon-modal-${coupon._id}`}
-                className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300"
+                className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300 dark:bg-white/10"
               >
                 <div className="flex h-full items-center justify-center">
-                  <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4">
+                  <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4 dark:bg-black">
                     <button
                       onClick={() =>
                         document
                           .getElementById(`update-coupon-modal-${coupon._id}`)
                           .classList.add("hidden")
                       }
-                      className="absolute right-4 top-4 rounded-full bg-gray-800 p-1.5 font-semibold text-white hover:bg-black focus:scale-95"
+                      className="absolute right-4 top-4 rounded-full bg-black p-1.5 font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                     >
                       <IoClose />
                     </button>
@@ -198,7 +196,7 @@ export default function ManageCoupons() {
                           name="couponCode"
                           id="couponCode"
                           defaultValue={coupon?.couponCode}
-                          className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                          className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                           placeholder="Enter coupon code"
                           required
                         />
@@ -212,7 +210,7 @@ export default function ManageCoupons() {
                           name="discountAmount"
                           id="discountAmount"
                           defaultValue={coupon?.discountAmount}
-                          className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                          className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                           placeholder="Enter discount amount"
                           required
                         />
@@ -231,7 +229,7 @@ export default function ManageCoupons() {
                               .split("T")[0]
                           }
                           min={new Date().toISOString().split("T")[0]}
-                          className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                          className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                           required
                         />
                       </div>
@@ -245,14 +243,14 @@ export default function ManageCoupons() {
                           id="description"
                           defaultValue={coupon?.description}
                           placeholder="Enter coupon description"
-                          className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                          className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                           required
                         ></textarea>
                       </div>
                       <div>
                         <button
                           type="submit"
-                          className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black focus:scale-95"
+                          className="inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                         >
                           Update
                         </button>
@@ -267,17 +265,17 @@ export default function ManageCoupons() {
       </section>
       <section
         id="add-coupon-modal"
-        className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300"
+        className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300 dark:bg-white/10"
       >
         <div className="flex h-full items-center justify-center">
-          <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4">
+          <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4 dark:bg-black">
             <button
               onClick={() =>
                 document
                   .getElementById("add-coupon-modal")
                   .classList.add("hidden")
               }
-              className="absolute right-4 top-4 rounded-full bg-gray-800 p-1.5 font-semibold text-white hover:bg-black focus:scale-95"
+              className="absolute right-4 top-4 rounded-full bg-black p-1.5 font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
             >
               <IoClose />
             </button>
@@ -290,7 +288,7 @@ export default function ManageCoupons() {
                   type="text"
                   name="couponCode"
                   id="couponCode"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   placeholder="Enter coupon code"
                   required
                 />
@@ -303,7 +301,7 @@ export default function ManageCoupons() {
                   type="number"
                   name="discountAmount"
                   id="discountAmount"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   placeholder="Enter discount amount"
                   required
                 />
@@ -317,7 +315,7 @@ export default function ManageCoupons() {
                   name="expiryDate"
                   id="expiryDate"
                   min={new Date().toISOString().split("T")[0]}
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   required
                 />
               </div>
@@ -330,14 +328,14 @@ export default function ManageCoupons() {
                   name="description"
                   id="description"
                   placeholder="Enter coupon description"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   required
                 ></textarea>
               </div>
               <div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black focus:scale-95"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                 >
                   Add
                 </button>

@@ -211,7 +211,7 @@ export default function ProductDetails() {
             <button
               disabled={user?.email === product?.ownerEmail}
               onClick={handleUpvote}
-              className={`${isUpvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
+              className={`${isUpvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-900 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
             >
               <div className="flex items-center justify-center border-r p-2 dark:border-gray-700">
                 {isUpvoted ? (
@@ -227,7 +227,7 @@ export default function ProductDetails() {
             <button
               disabled={user?.email === product?.ownerEmail}
               onClick={handleDownvote}
-              className={`${isDownvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
+              className={`${isDownvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-900 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
             >
               <div className="flex items-center justify-center border-r p-2 dark:border-gray-700">
                 {isDownvoted ? (
@@ -256,7 +256,7 @@ export default function ProductDetails() {
         </div>
         <div>
           <h3 className="mt-4 text-lg font-semibold">Reviews</h3>
-          <hr className="dark:border-gray-700"/>
+          <hr className="dark:border-gray-700" />
           <div className="mt-2 divide-y">
             {reviews.length === 0 && (
               <h2 className="mt-4 text-center font-semibold text-gray-600">
@@ -296,17 +296,17 @@ export default function ProductDetails() {
 
         <section
           id="add-review-modal"
-          className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300"
+          className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300 dark:bg-white/10"
         >
           <div className="flex h-full items-center justify-center">
-            <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4">
+            <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4 dark:bg-black">
               <button
                 onClick={() =>
                   document
                     .getElementById("add-review-modal")
                     .classList.add("hidden")
                 }
-                className="absolute right-4 top-4 rounded-full bg-gray-800 p-1.5 font-semibold text-white hover:bg-black focus:scale-95"
+                className="absolute right-4 top-4 rounded-full bg-black p-1.5 font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
               >
                 <IoClose />
               </button>
@@ -319,7 +319,7 @@ export default function ProductDetails() {
                     type="text"
                     name="reviewerName"
                     id="reviewerName"
-                    className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                    className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                     defaultValue={user?.displayName}
                     required
                     readOnly
@@ -333,7 +333,7 @@ export default function ProductDetails() {
                     type="url"
                     name="reviewerImage"
                     id="reviewerImage"
-                    className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                    className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                     defaultValue={user?.photoURL}
                     required
                     readOnly
@@ -353,7 +353,7 @@ export default function ProductDetails() {
                     type="number"
                     name="rating"
                     id="rating"
-                    className="hidden w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                    className="hidden w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                     value={rating}
                     required
                   />
@@ -366,14 +366,14 @@ export default function ProductDetails() {
                     name="review"
                     id="review"
                     placeholder="Write your review here..."
-                    className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                    className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                     required
                   ></textarea>
                 </div>
                 <div>
                   <button
                     type="submit"
-                    className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black focus:scale-95"
+                    className="inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
                   >
                     Submit
                   </button>

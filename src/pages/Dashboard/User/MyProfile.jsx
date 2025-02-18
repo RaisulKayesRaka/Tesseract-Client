@@ -58,14 +58,14 @@ export default function MyProfile() {
         <div className="flex w-full flex-col items-center">
           <div className="mb-4">
             <img
-              className="h-32 w-32 rounded-full border"
+              className="h-32 w-32 rounded-full border dark:border-gray-700"
               src={user?.photoURL}
               alt=""
               referrerPolicy="no-referrer"
             />
           </div>
           <h3 className="text-2xl font-semibold">{user?.displayName}</h3>
-          <p className="text-sm text-gray-800">{user?.email}</p>
+          <p className="text-sm">{user?.email}</p>
 
           {isVerified ? (
             <div className="mt-4 text-center">
@@ -74,7 +74,7 @@ export default function MyProfile() {
               </span>
             </div>
           ) : (
-            <div className="mt-4 flex w-full max-w-96 flex-col items-center justify-center gap-2 rounded-lg border border-gray-800 bg-gray-50 p-4">
+            <div className="mt-4 flex w-full max-w-96 flex-col items-center justify-center gap-2 rounded-lg border bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900">
               <h3>Subcribe for membership</h3>
               <button
                 onClick={() => {
@@ -82,7 +82,7 @@ export default function MyProfile() {
                     .getElementById("subscribe-modal")
                     .classList.remove("hidden");
                 }}
-                className="rounded-lg bg-gray-800 px-4 py-2 font-semibold text-white"
+                className="rounded-lg bg-black px-4 py-2 font-semibold text-white dark:bg-white dark:text-black"
               >
                 Subscribe ${amount}
               </button>
@@ -92,17 +92,17 @@ export default function MyProfile() {
       </section>
       <section
         id="subscribe-modal"
-        className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300"
+        className="fixed inset-0 z-50 hidden h-screen w-full bg-black/50 transition-all duration-300 dark:bg-white/10"
       >
         <div className="flex h-full items-center justify-center">
-          <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4">
+          <div className="relative m-4 w-full max-w-md rounded-lg bg-white p-4 dark:bg-black">
             <button
               onClick={() => {
                 document
                   .getElementById("subscribe-modal")
                   .classList.add("hidden");
               }}
-              className="absolute right-4 top-4 rounded-full bg-gray-800 p-1.5 font-semibold text-white hover:bg-black focus:scale-95"
+              className="absolute right-4 top-4 rounded-full bg-black p-1.5 font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
             >
               <IoClose />
             </button>
@@ -119,11 +119,11 @@ export default function MyProfile() {
                   type="text"
                   name="couponCode"
                   placeholder="Enter coupon code"
-                  className="inline-block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm hover:border-black"
+                  className="inline-block w-full rounded-lg border px-3 py-2 text-sm hover:border-black dark:border-gray-700 dark:bg-black"
                 />
                 <button
                   type="submit"
-                  className="inline-block rounded-lg bg-gray-800 px-3 py-2 text-sm text-white"
+                  className="inline-block rounded-lg bg-black px-3 py-2 text-sm text-white dark:bg-white dark:text-black"
                 >
                   Apply
                 </button>

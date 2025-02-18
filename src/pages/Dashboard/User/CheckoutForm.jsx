@@ -105,7 +105,7 @@ const CheckoutForm = ({ handleCloseModal, amount, refetchIsVerified }) => {
         <button
           disabled={!stripe || !clientSecret || processing}
           type="submit"
-          className="block w-full rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+          className="block w-full rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400 dark:bg-white dark:text-black dark:disabled:bg-gray-700 disabled:dark:text-gray-600"
         >
           Pay ${amount}
         </button>

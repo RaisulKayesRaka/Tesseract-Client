@@ -91,10 +91,10 @@ export default function ManageUsers() {
           <h1 className="text-xl font-semibold">Users</h1>
         </div>
 
-        <div className="mt-6 rounded-lg border border-gray-800">
+        <div className="mt-6 border-b dark:border-gray-700">
           <div className="overflow-x-auto">
             <table className="w-full table-auto text-left text-sm">
-              <thead className="bg-gray-800 text-white">
+              <thead className="bg-black text-white dark:bg-white dark:text-black">
                 <tr>
                   <th className="whitespace-nowrap p-4 font-semibold">Name</th>
                   <th className="p-4 font-semibold">Email</th>
@@ -104,28 +104,31 @@ export default function ManageUsers() {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user?._id} className="transition hover:bg-gray-50">
-                    <td className="whitespace-nowrap border-t px-4 py-3">
+                  <tr
+                    key={user?._id}
+                    className="transition hover:bg-gray-50 dark:hover:bg-gray-900"
+                  >
+                    <td className="whitespace-nowrap border-t px-4 py-3 dark:border-gray-700">
                       {user?.name}
                     </td>
-                    <td className="whitespace-nowrap border-t px-4 py-3">
+                    <td className="whitespace-nowrap border-t px-4 py-3 dark:border-gray-700">
                       {user?.email}
                     </td>
-                    <td className="whitespace-nowrap border-t px-4 py-3">
+                    <td className="whitespace-nowrap border-t px-4 py-3 dark:border-gray-700">
                       {user?.role}
                     </td>
 
-                    <td className="space-x-4 whitespace-nowrap border-t px-4 py-3">
+                    <td className="space-x-4 whitespace-nowrap border-t px-4 py-3 dark:border-gray-700">
                       <button
                         onClick={() => handleMakeModerator(user?._id)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                        className="inline-flex items-center gap-2 rounded-lg bg-black px-3 py-1.5 font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-white dark:text-black dark:disabled:bg-gray-600"
                         disabled={user?.role === "moderator"}
                       >
                         Make Moderator <MdAddModerator />
                       </button>
                       <button
                         onClick={() => handleMakeAdmin(user?._id)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-800 px-3 py-1.5 font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-300"
+                        className="inline-flex items-center gap-2 rounded-lg bg-black px-3 py-1.5 font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-white dark:text-black dark:disabled:bg-gray-600"
                         disabled={user?.role === "admin"}
                       >
                         Make Admin <FaUserShield />

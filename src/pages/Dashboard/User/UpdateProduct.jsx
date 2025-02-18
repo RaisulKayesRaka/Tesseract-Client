@@ -115,7 +115,7 @@ export default function AddProduct() {
                   name="productName"
                   id="productName"
                   defaultValue={product?.productName}
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   placeholder="Product name"
                   required
                   onChange={(e) => {
@@ -131,7 +131,7 @@ export default function AddProduct() {
                   type="file"
                   name="productImage"
                   id="productImage"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700"
                   accept="image/*"
                 />
               </div>
@@ -144,7 +144,7 @@ export default function AddProduct() {
                   id="productDescription"
                   placeholder="Product description"
                   defaultValue={product?.productDescription}
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   required
                   onChange={(e) => {
                     product.productDescription = e.target.value;
@@ -160,7 +160,7 @@ export default function AddProduct() {
                   name="externalLink"
                   id="externalLink"
                   defaultValue={product?.externalLink}
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700 dark:bg-black"
                   placeholder="Website link or landing page link of the product"
                   required
                   onChange={(e) => {
@@ -176,7 +176,7 @@ export default function AddProduct() {
                   type="text"
                   name="ownerName"
                   id="ownerName"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700"
                   defaultValue={user?.displayName}
                   required
                   readOnly
@@ -191,7 +191,7 @@ export default function AddProduct() {
                   type="url"
                   name="ownerImage"
                   id="ownerImage"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700"
                   defaultValue={user?.photoURL}
                   required
                   readOnly
@@ -206,7 +206,7 @@ export default function AddProduct() {
                   type="email"
                   name="ownerEmail"
                   id="ownerEmail"
-                  className="block w-full rounded-lg border border-gray-300 px-2.5 py-2 text-sm"
+                  className="block w-full rounded-lg border px-2.5 py-2 text-sm dark:border-gray-700"
                   defaultValue={user?.email}
                   required
                   readOnly
@@ -232,9 +232,9 @@ export default function AddProduct() {
                   classNames={{
                     tagInput: "flex item-center justify-center gap-4",
                     tagInputField:
-                      "w-full flex-1 rounded-lg border border-gray-300 px-2.5 py-2 placeholder:text-sm text-sm",
+                      "w-full flex-1 rounded-lg border dark:border-gray-700 px-2.5 py-2 placeholder:text-sm text-sm dark:bg-black",
                     clearAll:
-                      "bg-black text-white text-sm px-2.5 py-2 rounded-lg",
+                      "bg-black dark:bg-white text-white dark:text-black text-sm px-2.5 py-2 rounded-lg",
                     selected: "mt-3 flex items-center gap-3 flex-wrap",
                     tag: "bg-gray-800 text-white text-sm px-3 py-1 rounded-full cursor-pointer",
                     remove: "ml-2",
@@ -245,7 +245,7 @@ export default function AddProduct() {
               <div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 dark:bg-white dark:text-black"
                 >
                   Submit
                 </button>

@@ -17,13 +17,13 @@ export default function Sidebar({ toggleSidebar }) {
   return (
     <aside
       id="sidebar"
-      className="fixed top-0 z-50 max-h-screen min-h-full min-w-72 bg-white shadow sm:sticky"
+      className="fixed top-0 z-50 max-h-screen min-h-full min-w-72 bg-white shadow dark:bg-black dark:shadow-white sm:sticky"
     >
       <div className="flex h-16 items-center gap-4 p-4">
         <button
           onClick={toggleSidebar}
           aria-label="Close Sidebar"
-          className="rounded bg-gray-100 p-1 text-xl hover:bg-gray-200"
+          className="rounded bg-gray-100 p-1 text-xl hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
         >
           <GoSidebarCollapse />
         </button>
@@ -38,8 +38,8 @@ export default function Sidebar({ toggleSidebar }) {
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
@@ -50,8 +50,8 @@ export default function Sidebar({ toggleSidebar }) {
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
@@ -63,8 +63,8 @@ export default function Sidebar({ toggleSidebar }) {
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
@@ -80,8 +80,8 @@ export default function Sidebar({ toggleSidebar }) {
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
@@ -92,8 +92,8 @@ export default function Sidebar({ toggleSidebar }) {
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
@@ -106,25 +106,12 @@ export default function Sidebar({ toggleSidebar }) {
             {role === "admin" && (
               <>
                 <NavLink
-                  to="statistics"
-                  className={({ isActive }) =>
-                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
-                      isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
-                    }`
-                  }
-                >
-                  <IoStatsChart />
-                  <p>Statistics</p>
-                </NavLink>
-                <NavLink
                   to="manage-users"
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
@@ -135,18 +122,31 @@ export default function Sidebar({ toggleSidebar }) {
                   className={({ isActive }) =>
                     `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
                       isActive
-                        ? "bg-black font-semibold text-white"
-                        : "hover:bg-gray-50"
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
                     }`
                   }
                 >
                   <RiCoupon2Fill /> <p>Manage Coupons</p>
                 </NavLink>
+                <NavLink
+                  to="statistics"
+                  className={({ isActive }) =>
+                    `flex w-full items-center gap-4 rounded-lg px-4 py-2 text-center ${
+                      isActive
+                        ? "bg-black font-semibold text-white dark:bg-white dark:text-black"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-900"
+                    }`
+                  }
+                >
+                  <IoStatsChart />
+                  <p>Statistics</p>
+                </NavLink>
               </>
             )}
           </div>
         </section>
-        <hr />
+        <hr className="dark:border-gray-700" />
         <section className="w-full rounded-lg p-4">
           <div className="flex items-center justify-center">
             <img
@@ -160,13 +160,12 @@ export default function Sidebar({ toggleSidebar }) {
             <p className="px-4 py-3 text-center font-semibold">
               {user?.displayName}
             </p>
-            {/* <hr /> */}
             <div className="flex flex-col">
               <button
                 onClick={() => {
                   logOut();
                 }}
-                className="block rounded-lg bg-gray-800 px-4 py-2 text-center text-sm text-white hover:bg-black focus:scale-95"
+                className="block rounded-lg bg-black px-4 py-2 text-center text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
               >
                 Logout
               </button>
