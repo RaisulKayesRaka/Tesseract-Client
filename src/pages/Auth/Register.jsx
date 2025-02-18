@@ -7,10 +7,12 @@ import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { MdError } from "react-icons/md";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useTheme } from "../../providers/ThemeProvider";
 
 export default function Register() {
   const { setUser, createNewUser, updateUserProfile, googleLogIn } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const { theme } = useTheme();
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -87,13 +89,22 @@ export default function Register() {
       </Helmet>
       <section className="mx-auto flex min-h-screen w-11/12 max-w-screen-xl items-center justify-center py-8">
         <div className="mx-auto flex w-full max-w-[500px] items-center justify-center">
-          <div className="w-full rounded-lg border p-8">
-            <img
-              onClick={() => navigate("/")}
-              className="mx-auto mb-4 h-16 w-16 cursor-pointer"
-              src="/tesseract.png"
-              alt="Tesseract Logo"
-            />
+          <div className="w-full rounded-lg border p-8 dark:border-gray-700">
+            {theme === "dark" ? (
+              <img
+                onClick={() => navigate("/")}
+                className="mx-auto mb-4 h-16 w-16 cursor-pointer"
+                src="/tesseract-white.png"
+                alt="Tesseract Logo"
+              />
+            ) : (
+              <img
+                onClick={() => navigate("/")}
+                className="mx-auto mb-4 h-16 w-16 cursor-pointer"
+                src="/tesseract.png"
+                alt="Tesseract Logo"
+              />
+            )}
             <h1 className="pb-8 text-center text-3xl font-semibold">
               Register
             </h1>
@@ -105,7 +116,7 @@ export default function Register() {
                   name="name"
                   placeholder="Name"
                   id="name"
-                  className="w-full rounded-lg border px-3 py-2"
+                  className="w-full rounded-lg border px-3 py-2 dark:border-gray-700 dark:bg-black"
                   required
                 />
               </label>
@@ -116,7 +127,7 @@ export default function Register() {
                   name="photoUrl"
                   placeholder="Photo URL"
                   id="photoUrl"
-                  className="w-full rounded-lg border px-3 py-2"
+                  className="w-full rounded-lg border px-3 py-2 dark:border-gray-700 dark:bg-black"
                   required
                 />
               </label>
@@ -128,7 +139,7 @@ export default function Register() {
                   name="email"
                   placeholder="Email"
                   id="email"
-                  className="w-full rounded-lg border px-3 py-2"
+                  className="w-full rounded-lg border px-3 py-2 dark:border-gray-700 dark:bg-black"
                   required
                 />
               </label>
@@ -140,7 +151,7 @@ export default function Register() {
                     name="password"
                     placeholder="Password"
                     id="password"
-                    className="w-full rounded-lg border px-3 py-2"
+                    className="w-full rounded-lg border px-3 py-2 dark:border-gray-700 dark:bg-black"
                     required
                   />
                   {showPassword ? (
@@ -169,19 +180,20 @@ export default function Register() {
               <div className="">
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-black p-2 font-semibold text-white focus:scale-95"
+                  className="w-full rounded-lg bg-black p-2 font-semibold text-white focus:scale-95 dark:bg-white dark:text-black"
                 >
                   Register
                 </button>
               </div>
             </form>
             <div className="mt-4 flex items-center justify-center">
-              <hr className="h-1 w-full" /> <span className="px-4">or</span>
-              <hr className="h-1 w-full" />
+              <hr className="h-1 w-full dark:border-gray-700" />{" "}
+              <span className="px-4">or</span>
+              <hr className="h-1 w-full dark:border-gray-700" />
             </div>
             <button
               onClick={handleGoogleLogIn}
-              className="mt-4 flex w-full items-center justify-center gap-3 rounded-lg border border-black p-2 font-semibold focus:scale-95"
+              className="mt-4 flex w-full items-center justify-center gap-3 rounded-lg border border-black p-2 font-semibold focus:scale-95 dark:border-white"
             >
               <FaGoogle /> Continue with Google
             </button>

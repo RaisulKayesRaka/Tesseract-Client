@@ -6,10 +6,12 @@ import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { MdError } from "react-icons/md";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useTheme } from "../../providers/ThemeProvider";
 
 export default function Login() {
   const { setUser, userLogin, googleLogIn } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const { theme } = useTheme();
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -68,13 +70,22 @@ export default function Login() {
       </Helmet>
       <section className="mx-auto flex min-h-screen w-11/12 max-w-screen-xl items-center justify-center py-8">
         <div className="mx-auto flex w-full max-w-[500px] items-center justify-center">
-          <div className="w-full rounded-lg border p-8">
-            <img
-              onClick={() => navigate("/")}
-              className="mx-auto mb-4 h-16 w-16 cursor-pointer"
-              src="/tesseract.png"
-              alt="Tesseract Logo"
-            />
+          <div className="w-full rounded-lg border p-8 dark:border-gray-700">
+            {theme === "dark" ? (
+              <img
+                onClick={() => navigate("/")}
+                className="mx-auto mb-4 h-16 w-16 cursor-pointer"
+                src="/tesseract-white.png"
+                alt="Tesseract Logo"
+              />
+            ) : (
+              <img
+                onClick={() => navigate("/")}
+                className="mx-auto mb-4 h-16 w-16 cursor-pointer"
+                src="/tesseract.png"
+                alt="Tesseract Logo"
+              />
+            )}
             <h1 className="pb-8 text-center text-3xl font-semibold">Log In</h1>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -85,7 +96,7 @@ export default function Login() {
                   name="email"
                   placeholder="Email"
                   id="email"
-                  className="w-full rounded-lg border px-3 py-2"
+                  className="w-full rounded-lg border px-3 py-2 dark:border-gray-700 dark:bg-black"
                   ref={emailRef}
                   required
                 />
@@ -98,7 +109,7 @@ export default function Login() {
                     name="password"
                     placeholder="Password"
                     id="password"
-                    className="w-full rounded-lg border px-3 py-2"
+                    className="w-full rounded-lg border px-3 py-2 dark:border-gray-700 dark:bg-black"
                     required
                   />
                   {showPassword ? (
@@ -126,20 +137,21 @@ export default function Login() {
               <div className="grid grid-cols-1 gap-4">
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-black p-2 font-semibold text-white focus:scale-95"
+                  className="w-full rounded-lg bg-black p-2 font-semibold text-white focus:scale-95 dark:bg-white dark:text-black"
                 >
                   Log In
                 </button>
               </div>
             </form>
             <div className="mt-4 flex items-center justify-center">
-              <hr className="h-1 w-full" /> <span className="px-4">or</span>
-              <hr className="h-1 w-full" />
+              <hr className="h-1 w-full dark:border-gray-700" />{" "}
+              <span className="px-4">or</span>
+              <hr className="h-1 w-full dark:border-gray-700" />
             </div>
             <button
               onClick={handleGoogleLogIn}
               type="submit"
-              className="mt-4 flex w-full items-center justify-center gap-3 rounded-lg border border-black p-2 font-semibold focus:scale-95"
+              className="mt-4 flex w-full items-center justify-center gap-3 rounded-lg border border-black p-2 font-semibold focus:scale-95 dark:border-white"
             >
               <FaGoogle /> Continue with Google
             </button>
