@@ -66,7 +66,7 @@ export default function Products() {
             type="text"
             name="search"
             placeholder="Search by tag..."
-            className="w-full max-w-sm rounded-lg border-2 border-gray-600 px-4 py-2 text-sm"
+            className="w-full max-w-sm rounded-lg border-2 px-4 py-2 text-sm dark:border-gray-700 dark:bg-black"
           />
         </div>
         {isLoading ? (
@@ -83,7 +83,7 @@ export default function Products() {
           </div>
         )}
 
-        <section className="my-4 flex items-center justify-between border-gray-200 bg-white">
+        <section className="my-4 flex items-center justify-between border-gray-200">
           <div className="flex flex-1 items-center justify-between">
             <div className="hidden sm:block">
               <label htmlFor="perPage" className="sr-only">
@@ -93,7 +93,7 @@ export default function Products() {
                 id="currentPage"
                 value={currentPage}
                 onChange={(e) => setCurrentPage(Number(e.target.value))}
-                className="rounded-md border-gray-300 border px-3 py-2 text-sm"
+                className="rounded-md border px-3 py-2 text-sm dark:border-gray-700 dark:bg-black"
               >
                 {Array.from(
                   { length: Math.ceil(count / itemsPerPage) },
@@ -113,7 +113,7 @@ export default function Products() {
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 0}
-                  className="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                  className="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-gray-200 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-gray-700 dark:hover:bg-gray-900"
                 >
                   <FaAngleLeft />
                   <span className="text-sm font-semibold">Previous</span>
@@ -122,7 +122,7 @@ export default function Products() {
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === Math.ceil(count / itemsPerPage) - 1}
-                  className="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                  className="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset ring-gray-200 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-gray-700 dark:hover:bg-gray-900"
                 >
                   <span className="text-sm font-semibold">Next</span>
                   <FaAngleRight />
