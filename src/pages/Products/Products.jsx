@@ -12,6 +12,7 @@ export default function Products() {
   const [currentPage, setCurrentPage] = useState(0);
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("newest");
   const itemsPerPage = 6;
 
   useEffect(() => {
@@ -27,10 +28,10 @@ export default function Products() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["products", currentPage, itemsPerPage, search],
+    queryKey: ["products", currentPage, itemsPerPage, search, sort],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/accepted-products?page=${currentPage}&size=${itemsPerPage}&search=${search}`,
+        `/accepted-products?page=${currentPage}&size=${itemsPerPage}&search=${search}&sort=${sort}`,
       );
       return data;
     },
@@ -59,15 +60,28 @@ export default function Products() {
         <title>Products | Tesseract</title>
       </Helmet>
       <section className="mx-auto my-8 w-11/12 max-w-screen-xl">
-        <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <h2 className="text-2xl font-semibold">Products</h2>
-          <input
-            onChange={handleSearch}
-            type="text"
-            name="search"
-            placeholder="Search by tag..."
-            className="w-full max-w-sm rounded-lg border-2 px-4 py-2 text-sm dark:border-gray-700 dark:bg-black"
-          />
+        <div className="mb-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold">Products</h2>
+          </div>
+          <div className="flex w-full flex-1 justify-center gap-4 sm:justify-end">
+            <input
+              onChange={handleSearch}
+              type="text"
+              name="search"
+              placeholder="Search by tag..."
+              className="w-full max-w-sm rounded-lg border-2 px-4 py-2 text-sm dark:border-gray-700 dark:bg-black"
+            />
+            <select
+              onChange={(e) => setSort(e.target.value)}
+              name="sort"
+              id="sort"
+              className="rounded-lg border-2 px-4 py-2 text-sm dark:border-gray-700 dark:bg-black"
+            >
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
         </div>
         {isLoading ? (
           <Loading />

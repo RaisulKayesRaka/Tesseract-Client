@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../layouts.jsx/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Login from "../pages/Auth/Login";
@@ -7,7 +7,7 @@ import Register from "../pages/Auth/Register";
 import Products from "../pages/Products/Products";
 import ProductDetails from "../pages/Products/ProductDetails";
 import PrivateRoute from "./PrivateRoute";
-import DashboardLayout from "../layouts.jsx/DashboardLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
 import AddProduct from "../pages/Dashboard/User/AddProduct";
 import MyProducts from "../pages/Dashboard/User/MyProducts";
