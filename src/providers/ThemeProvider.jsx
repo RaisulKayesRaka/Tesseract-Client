@@ -6,9 +6,15 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "system"
-  );
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "system");
+
+  useEffect(() => {
+    if (!localStorage.getItem("theme")) {
+      const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const currentTheme = darkQuery.matches ? "dark" : "light";
+      localStorage.setItem("theme", currentTheme);
+    }
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;

@@ -167,7 +167,7 @@ export default function ProductDetails() {
       <section className="mx-auto my-8 w-11/12 max-w-screen-xl">
         <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <div className="flex flex-wrap gap-4">
-            <div className="min-w-16">
+            <div className="min-w-16 rounded-lg dark:bg-white">
               <img className="w-16" src={product?.productImage} />
             </div>
             <div className="space-y-2">
@@ -176,7 +176,7 @@ export default function ProductDetails() {
                 {product?.productTags.map((tag, index) => (
                   <div
                     key={index}
-                    className="inline-block rounded-full bg-gray-100 px-2"
+                    className="inline-block rounded-full bg-gray-100 px-2 dark:bg-gray-800"
                   >
                     {tag?.id}
                   </div>
@@ -188,14 +188,14 @@ export default function ProductDetails() {
             <a
               href={product?.externalLink}
               target="_blank"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black focus:scale-95"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
             >
               Go
               <FiArrowUpRight className="text-lg" />
             </a>
             <button
               onClick={() => handleMakeReported(product?._id)}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-800 px-4 py-2 text-sm font-semibold focus:scale-95"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-black px-4 py-2 text-sm font-semibold focus:scale-95 dark:border-white"
             >
               Report
               <GoReport className="text-lg" />
@@ -211,9 +211,9 @@ export default function ProductDetails() {
             <button
               disabled={user?.email === product?.ownerEmail}
               onClick={handleUpvote}
-              className={`${isUpvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
+              className={`${isUpvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
             >
-              <div className="flex items-center justify-center border-r p-2">
+              <div className="flex items-center justify-center border-r p-2 dark:border-gray-700">
                 {isUpvoted ? (
                   <BsCaretUpFill className="text-xl" />
                 ) : (
@@ -227,9 +227,9 @@ export default function ProductDetails() {
             <button
               disabled={user?.email === product?.ownerEmail}
               onClick={handleDownvote}
-              className={`${isDownvoted ? "bg-gray-100" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400`}
+              className={`${isDownvoted ? "bg-gray-100 dark:bg-gray-800" : ""} flex w-full items-center justify-center rounded-lg border hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 dark:border-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-500`}
             >
-              <div className="flex items-center justify-center border-r p-2">
+              <div className="flex items-center justify-center border-r p-2 dark:border-gray-700">
                 {isDownvoted ? (
                   <BsCaretDownFill className="text-xl" />
                 ) : (
@@ -248,7 +248,7 @@ export default function ProductDetails() {
                   .getElementById("add-review-modal")
                   .classList.remove("hidden")
               }
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black focus:scale-95"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 focus:scale-95 dark:bg-white dark:text-black"
             >
               Add review <FaPen />
             </button>
@@ -256,7 +256,7 @@ export default function ProductDetails() {
         </div>
         <div>
           <h3 className="mt-4 text-lg font-semibold">Reviews</h3>
-          <hr />
+          <hr className="dark:border-gray-700"/>
           <div className="mt-2 divide-y">
             {reviews.length === 0 && (
               <h2 className="mt-4 text-center font-semibold text-gray-600">

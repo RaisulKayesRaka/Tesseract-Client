@@ -11,12 +11,14 @@ export default function Footer() {
   const { theme } = useTheme();
   return (
     <>
-      <hr />
+      <hr className="dark:border-gray-700" />
       <footer className="py-10">
         <div className="mx-auto grid w-11/12 max-w-screen-xl grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo and Description */}
           <div className="space-y-4">
-            {theme === "dark" ? (
+            {theme === "dark" ||
+            (theme === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches) ? (
               <img
                 src="/tesseract-white.png"
                 alt="Tesseract Logo"
@@ -84,7 +86,7 @@ export default function Footer() {
           </div>
         </div>
         {/* Copyright Section */}
-        <div className="mx-auto mt-8 w-11/12 max-w-screen-xl border-t border-gray-300 pt-4 text-center">
+        <div className="mx-auto mt-8 w-11/12 max-w-screen-xl border-t pt-4 text-center dark:border-gray-700">
           <p>© {new Date().getFullYear()} Tesseract. All rights reserved.</p>
         </div>
       </footer>

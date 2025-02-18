@@ -9,7 +9,13 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       className="rounded-full border-2 border-black p-1 text-xl dark:border-white dark:text-white"
     >
-      {theme === "dark" ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
+      {theme === "dark" ||
+      (theme === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches) ? (
+        <MdOutlineLightMode />
+      ) : (
+        <MdOutlineDarkMode />
+      )}
     </button>
   );
 }

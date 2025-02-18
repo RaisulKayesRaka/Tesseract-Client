@@ -37,7 +37,9 @@ export default function Navbar() {
       <nav className="sticky top-0 z-50 border-b bg-white py-5 dark:border-gray-700 dark:bg-black">
         <div className="mx-auto flex w-11/12 max-w-screen-xl items-center justify-between">
           <section className="flex items-center justify-center gap-2">
-            {theme === "dark" ? (
+            {theme === "dark" ||
+            (theme === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches) ? (
               <img
                 onClick={() => navigate("/")}
                 className="h-9 w-9 cursor-pointer"
