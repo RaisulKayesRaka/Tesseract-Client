@@ -5,6 +5,7 @@ import TrendingProducts from "../components/TrendingProducts";
 import RecentProducts from "../components/RecentProducts";
 import Newsletter from "../components/Newsletter";
 import Stats from "../components/Stats";
+import Testimonials from "../components/Testimonials";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <TrendingProducts />
       <RecentProducts />
       <Coupons />
+      <Testimonials />
       <Newsletter />
     </>
   );

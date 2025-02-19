@@ -29,9 +29,9 @@ export default function FeaturedProducts() {
 
   return (
     <section className="mx-auto my-12 w-11/12 max-w-screen-xl">
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold">Featured Products</h2>
-      </div>
+      <h2 className="mb-6 text-center text-2xl font-semibold">
+        Featured Products
+      </h2>
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
