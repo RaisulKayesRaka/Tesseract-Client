@@ -15,7 +15,7 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="mx-auto my-12 w-11/12 max-w-screen-xl rounded-lg bg-gray-100 px-6 py-16 text-center dark:bg-gray-900 md:px-12">
+    <div className="mx-auto my-12 w-11/12 max-w-screen-xl rounded-lg border bg-gray-50 px-6 py-16 text-center dark:border-gray-700 dark:bg-gray-900 md:px-12">
       <h2 className="text-2xl font-semibold">Stay Updated!</h2>
       <p className="mt-2 text-base">
         Subscribe to our newsletter and never miss an update on the latest tech
