@@ -80,6 +80,22 @@ export default function Navbar() {
             >
               Products
             </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${isActive ? "font-bold" : ""} hidden sm:block`
+              }
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/faq"
+              className={({ isActive }) =>
+                `${isActive ? "font-bold" : ""} hidden sm:block`
+              }
+            >
+              FAQ
+            </NavLink>
             <ThemeToggle />
 
             {user && user?.email ? (
@@ -164,6 +180,24 @@ export default function Navbar() {
                   }
                 >
                   Products
+                </NavLink>
+                <NavLink
+                  to="/about"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `${isActive ? "font-bold" : ""} block py-3`
+                  }
+                >
+                  About
+                </NavLink>
+                <NavLink
+                  to="/faq"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `${isActive ? "font-bold" : ""} block py-3`
+                  }
+                >
+                  FAQ
                 </NavLink>
               </div>
               {user && user?.email ? (

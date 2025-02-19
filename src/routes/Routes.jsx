@@ -19,6 +19,8 @@ import ManageCoupons from "../pages/Dashboard/Admin/ManageCoupons";
 import AdminRoute from "./AdminRoute";
 import ModeratorRoute from "./ModeratorRoute";
 import UpdateProduct from "../pages/Dashboard/User/UpdateProduct";
+import About from "../pages/About";
+import FAQ from "../pages/FAQ";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
       },
       {
         path: "/products",
